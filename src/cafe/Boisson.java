@@ -48,11 +48,11 @@ public class Boisson {
 
     /**
      * Tester la possiblité de la boisson en fonction du stock.
-     *
-     * @param stock Stock
-     * @return Vrai/Fauxs
+     * Pas de paramètre, car les stocks sont accessibles partout (Singleton)
+     * 
+     * @return Vrai/Faux
      */
-    public boolean estPossible(stock.StockIngredient stock) {
+    public boolean estPossible() {
         return false;
         // TODO
         // Parcourir la liste des ingrédients
