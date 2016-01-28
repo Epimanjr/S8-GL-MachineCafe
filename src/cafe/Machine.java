@@ -30,12 +30,7 @@ public class Machine {
             System.out.println(menu);
             System.out.println("=> ");
 
-            try {
-                choix = sc.nextInt();
-            } catch (InputMismatchException e) {
-                System.err.println("Erreur, veuillez entrer un nombre entier.");
-                sc.nextLine();
-            }
+            choix = Interaction.demanderEntier();
 
             switch (choix) {
                 case 1:
@@ -72,21 +67,24 @@ public class Machine {
         } else {
             System.out.println("Quelle boisson voulez-vous acheter ?");
             // Demande
-            Scanner sc = new Scanner(System.in);
             stock.StockBoisson.getStock().listerBoissons();
-            Boisson b = stock.StockBoisson.getStock().demanderQuelleBoisson(sc);
+            Boisson b = stock.StockBoisson.getStock().demanderQuelleBoisson();
 
             if (b != null) {
                 // Achat
-                int argent = demanderArgent(sc);
+                int argent = demanderArgent();
                 b.acheter(10);
             }
         }
     }
 
-    private static int demanderArgent(Scanner sc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        // TODO
+    /**
+     * Demande à l'utilisateur d'insérer l'argent.
+     *
+     * @return Nombre
+     */
+    private static int demanderArgent() {
+        System.out.println("Entrer combien de monnaie : ");
+        return Interaction.demanderEntierAvecMin(1);
     }
-
 }

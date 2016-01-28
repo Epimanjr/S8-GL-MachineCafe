@@ -2,6 +2,7 @@ package stock;
 
 import cafe.Boisson;
 import cafe.Ingredient;
+import cafe.Interaction;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -44,7 +45,7 @@ public class StockBoisson {
             Scanner sc = new Scanner(System.in);
 
             listerBoissons();
-            Boisson b = demanderQuelleBoisson(sc);
+            Boisson b = demanderQuelleBoisson();
             if (b != null) {
                 this.boissons.remove(b);
                 System.out.println("Boisson supprimée avec succès");
@@ -63,7 +64,7 @@ public class StockBoisson {
             Scanner sc = new Scanner(System.in);
 
             listerBoissons();
-            Boisson b = demanderQuelleBoisson(sc);
+            Boisson b = demanderQuelleBoisson();
             if (b != null) {
                 gestionModification(sc, b);
             }
@@ -92,7 +93,7 @@ public class StockBoisson {
                     flag = true;
                     Ingredient ingredient = StockIngredient.demanderQuelIngredient(sc);
                     int quantite = StockIngredient.demanderQuantiteIngredient(sc);
-                   boisson.setIngredient(ingredient, quantite);
+                    boisson.setIngredient(ingredient, quantite);
                     System.out.println("Modification OK");
                     break;
                 case 3:
@@ -112,26 +113,14 @@ public class StockBoisson {
      * @param sc Scanner
      * @return Numéro boisson
      */
-    public Boisson demanderQuelleBoisson(Scanner sc) {
-        do {
-            System.out.print("=> ");
-            int choix;
-            try {
-                choix = sc.nextInt();
-                if (choix < 0 || choix > this.boissons.size()) {
-                    System.err.println("Erreur: mauvais choix");
-                } else {
-                    if(choix == 0) {
-                        return null;
-                    }
-                    return this.boissons.get(choix - 1);
-                }
-            } catch (InputMismatchException e) {
-                System.err.println("Erreur: veuillez entrer un entier valide.");
-                sc.nextLine();
-            }
-
-        } while (true);
+    public Boisson demanderQuelleBoisson() {
+        System.out.print("=> ");
+        int numeroBoisson = Interaction.demanderEntierEntreIntervalle(0, this.boissons.size());
+        if (numeroBoisson == 0) {
+            return null;
+        } else {
+            return this.boissons.get(numeroBoisson - 1);
+        }
     }
 
     /**
@@ -223,20 +212,7 @@ public class StockBoisson {
      */
     private int demanderPrix(Scanner sc) {
         System.out.print("Prix de la boisson (>0) : ");
-        do {
-            int prix;
-            try {
-                prix = sc.nextInt();
-                if (prix <= 0) {
-                    System.err.println("Erreur: le prix doit être >0");
-                } else {
-                    return prix;
-                }
-            } catch (InputMismatchException e) {
-                System.err.println("Erreur: veuillez entrer un entier valide.");
-                sc.nextLine();
-            }
-        } while (true);
+        return Interaction.demanderEntierAvecMin(1);
     }
 
     /**
