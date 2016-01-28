@@ -44,9 +44,9 @@ public class StockBoisson {
             Scanner sc = new Scanner(System.in);
 
             listerBoissons();
-            int choix = demanderQuelleBoisson(sc);
-            if (choix != (-1)) {
-                this.boissons.remove(choix);
+            Boisson b = demanderQuelleBoisson(sc);
+            if (b != null) {
+                this.boissons.remove(b);
                 System.out.println("Boisson supprimée avec succès");
             }
 
@@ -63,9 +63,9 @@ public class StockBoisson {
             Scanner sc = new Scanner(System.in);
 
             listerBoissons();
-            int choix = demanderQuelleBoisson(sc);
-            if (choix != (-1)) {
-                gestionModification(sc, choix);
+            Boisson b = demanderQuelleBoisson(sc);
+            if (b != null) {
+                gestionModification(sc, b);
             }
         }
     }
@@ -74,9 +74,9 @@ public class StockBoisson {
      * Gestion d'une modification d'une boisson.
      *
      * @param sc Scanner
-     * @param choix Numéro de la boisson
+     * @param boisson Boisson
      */
-    public void gestionModification(Scanner sc, int choix) {
+    public void gestionModification(Scanner sc, Boisson boisson) {
         System.out.println("Que voulez-vous modifier ?\n1/ Prix de la boisson.\n2/ Un ingrédient.\n3/ Plus rien!");
         boolean flag = false;
         while (!flag) {
@@ -85,14 +85,14 @@ public class StockBoisson {
                 case 1:
                     flag = true;
                     int prix = demanderPrix(sc);
-                    this.boissons.get(choix).setPrix(prix);
+                    boisson.setPrix(prix);
                     System.out.println("Modification OK");
                     break;
                 case 2:
                     flag = true;
                     Ingredient ingredient = StockIngredient.demanderQuelIngredient(sc);
                     int quantite = StockIngredient.demanderQuantiteIngredient(sc);
-                    this.boissons.get(choix).setIngredient(ingredient, quantite);
+                   boisson.setIngredient(ingredient, quantite);
                     System.out.println("Modification OK");
                     break;
                 case 3:
@@ -112,7 +112,7 @@ public class StockBoisson {
      * @param sc Scanner
      * @return Numéro boisson
      */
-    public int demanderQuelleBoisson(Scanner sc) {
+    public Boisson demanderQuelleBoisson(Scanner sc) {
         do {
             System.out.print("=> ");
             int choix;
@@ -121,7 +121,10 @@ public class StockBoisson {
                 if (choix < 0 || choix > this.boissons.size()) {
                     System.err.println("Erreur: mauvais choix");
                 } else {
-                    return choix - 1;
+                    if(choix == 0) {
+                        return null;
+                    }
+                    return this.boissons.get(choix - 1);
                 }
             } catch (InputMismatchException e) {
                 System.err.println("Erreur: veuillez entrer un entier valide.");

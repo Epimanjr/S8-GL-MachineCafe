@@ -125,6 +125,17 @@ public class StockIngredient {
     }
 
     /**
+     * Enlève la quantité d'un ingrédient (lors d'un achat)
+     *
+     * @param i Ingrédient
+     * @param q Quantité
+     */
+    public void enleverQuantite(Ingredient i, int q) {
+        int quantite = this.ingredients.get(i);
+        this.ingredients.replace(i, quantite - q);
+    }
+
+    /**
      * Affiche le stock des ingrédients de la machine à café.
      */
     public void afficherStockIngredient() {

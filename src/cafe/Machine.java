@@ -38,6 +38,9 @@ public class Machine {
             }
 
             switch (choix) {
+                case 1:
+                    Machine.acheterBoisson();
+                    break;
                 case 2:
                     stock.StockBoisson.getStock().ajouterBoisson();
                     break;
@@ -58,6 +61,32 @@ public class Machine {
             }
 
         } while (choix != 7);
+    }
+
+    /**
+     * Achat d'une boisson
+     */
+    public static void acheterBoisson() {
+        if (stock.StockBoisson.getStock().getBoissons().isEmpty()) {
+            System.err.println("Erreur: aucune boisson à acheter.");
+        } else {
+            System.out.println("Quelle boisson voulez-vous acheter ?");
+            // Demande
+            Scanner sc = new Scanner(System.in);
+            stock.StockBoisson.getStock().listerBoissons();
+            Boisson b = stock.StockBoisson.getStock().demanderQuelleBoisson(sc);
+
+            if (b != null) {
+                // Achat
+                int argent = demanderArgent(sc);
+                b.acheter(10);
+            }
+        }
+    }
+
+    private static int demanderArgent(Scanner sc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // TODO
     }
 
 }
