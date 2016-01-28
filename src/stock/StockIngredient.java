@@ -82,7 +82,7 @@ public class StockIngredient {
         while (true) {
             System.out.print("=> ");
             int numeroIngredient = Interaction.demanderEntierEntreIntervalle(1, tabIngredients.length);
-            return tabIngredients[numeroIngredient];
+            return tabIngredients[numeroIngredient - 1];
         }
     }
 
@@ -92,8 +92,8 @@ public class StockIngredient {
      * @return Entier valide
      */
     public static int demanderQuantiteIngredient() {
-        System.out.println("Quelle quantité ? (>0 obligatoirement)");
-        return Interaction.demanderEntierAvecMin(1);
+        System.out.println("Quelle quantité (>=0 obligatoirement) ?");
+        return Interaction.demanderEntierAvecMin(0);
     }
 
     /**

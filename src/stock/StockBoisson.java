@@ -92,6 +92,7 @@ public class StockBoisson {
                     flag = true;
                     Ingredient ingredient = StockIngredient.demanderQuelIngredient();
                     int quantite = StockIngredient.demanderQuantiteIngredient();
+                    System.err.println("Test : " + ingredient + "-" + quantite);
                     boisson.setIngredient(ingredient, quantite);
                     System.out.println("Modification OK");
                     break;
