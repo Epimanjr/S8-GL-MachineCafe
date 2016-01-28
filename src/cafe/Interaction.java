@@ -15,6 +15,11 @@ import java.util.Scanner;
 public class Interaction {
 
     /**
+     * Valeur maximale à ne pas dépasser.
+     */
+    public static int valeurMax = 30000;
+    
+    /**
      * Scanner pour lire au clavier.
      */
     public static Scanner sc = new Scanner(System.in);
@@ -49,7 +54,11 @@ public class Interaction {
             if (res < min) {
                 System.err.println("Erreur: veuillez entrer un nombre supérieur ou égal à " + min);
             } else {
-                return res;
+                if (res > Interaction.valeurMax) {
+                    System.err.println("Erreur: pas trop grand quand même");
+                } else {
+                    return res;
+                }
             }
         }
     }
