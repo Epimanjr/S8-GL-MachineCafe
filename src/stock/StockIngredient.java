@@ -60,7 +60,7 @@ public class StockIngredient {
                 choixCorrect = true;
             }
         }
-        Ingredient ingredient = tabIngredients[choix];
+        Ingredient ingredient = tabIngredients[choix-1];
         // Demande la quantité
         System.out.println("Quelle quantité ? (>0 obligatoirement)");
         choixCorrect = false;
