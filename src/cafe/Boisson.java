@@ -36,14 +36,29 @@ public class Boisson {
         this.prix = prix;
     }
 
+    /**
+     * Modification d'un ingrédient de la boisson
+     *
+     * @param i Ingrédient
+     * @param qte Quantité
+     */
     public void setIngredient(Ingredient i, Integer qte) {
-        //this.recette.replace(i, qte);
-        // TODO
+        this.recette.replace(i, qte);
     }
 
+    /**
+     * Tester la possiblité de la boisson en fonction du stock.
+     *
+     * @param stock Stock
+     * @return Vrai/Fauxs
+     */
     public boolean estPossible(stock.StockIngredient stock) {
         return false;
         // TODO
+        // Parcourir la liste des ingrédients
+
+        // Pour chaque, comparer stockNecessaire et stockDisponible, retourner faux dès que pas possible
+        // Retourner vrai
     }
 
     /**
@@ -56,11 +71,9 @@ public class Boisson {
     public int acheter(int argentDonne) {
         // TODO
         // Vérification de la possibilité
-        
+
         // Vérification de l'argent (ça suffit ?)
-        
         // Enlèvement des ingrédients du stock.
-        
         // Monnaie à rendre
         return 0;
     }
