@@ -1,6 +1,8 @@
 package cafe;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Boisson {
     private int prix;
@@ -45,7 +47,18 @@ public class Boisson {
     }
      
         
-        
+    @Override
+     public String toString() {
+         String res = this.nom + "(Prix:"+this.prix+") Ingrédients{";
+         Set set = recette.keySet();
+         Iterator it = set.iterator();
+         while(it.hasNext()) {
+             Ingredient i = (Ingredient) it.next();
+             res += i.toString() + ":" + recette.get(i) + "-" ;
+         }
+         res+="}";
+         return res;
+     }   
         
         
         

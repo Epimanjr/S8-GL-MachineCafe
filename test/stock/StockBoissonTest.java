@@ -19,30 +19,30 @@ import static org.junit.Assert.*;
  * @author maxime
  */
 public class StockBoissonTest {
-    
+
     StockBoisson stockBoissons;
-    
+
     public StockBoissonTest() {
         stockBoissons = StockBoisson.getStock();
-         HashMap<Ingredient, Integer> recette = new HashMap<>();
-        for(Ingredient i : Ingredient.values()) {
+        HashMap<Ingredient, Integer> recette = new HashMap<>();
+        for (Ingredient i : Ingredient.values()) {
             recette.put(i, (int) (Math.random() * 10));
         }
         stockBoissons.ajouterBoisson("Chocolat", 1, recette);
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -51,15 +51,15 @@ public class StockBoissonTest {
     public void testTailleListe() {
         assertEquals(stockBoissons.getBoissons().size(), 1);
     }
-    
+
     @Test
     public void testNomBoisson() {
         assertEquals(stockBoissons.getBoissons().get(0).getNom(), "Chocolat");
     }
-    
+
     @Test
     public void testPrixBoisson() {
         assertEquals(stockBoissons.getBoissons().get(0).getPrix(), 1);
     }
- 
+
 }

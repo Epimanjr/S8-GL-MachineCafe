@@ -38,6 +38,9 @@ public class Machine {
             
             
             switch(choix){
+                case 2:
+                    stock.StockBoisson.getStock().ajouterBoisson();
+                    break;
                 case 5:
                     stock.StockIngredient.getStock().ajouterIngredient();
                     break;

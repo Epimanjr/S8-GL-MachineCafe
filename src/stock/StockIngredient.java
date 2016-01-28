@@ -42,44 +42,61 @@ public class StockIngredient {
      * Méthode qui ajoute un ingrédient.
      */
     public void ajouterIngredient() {
-        Ingredient[] tabIngredients = Ingredient.values();
-        System.out.println("Quel ingrédient ?");
-        for(int i=0;i<tabIngredients.length;i++) {
-            System.out.println((i+1) + "/ " + tabIngredients[i].toString());
-        }
         Scanner sc = new Scanner(System.in);
+
         // Demande l'ingrédient
-        boolean choixCorrect = false;
-        int choix = 0;
-        while(!choixCorrect) {
-            choix = sc.nextInt();
-            if(choix < 1 || choix > tabIngredients.length) {
-                System.err.println("Choix incorrect.");
-            } else {
-                choixCorrect = true;
-            }
-        }
-        Ingredient ingredient = tabIngredients[choix-1];
+        Ingredient ingredient = demanderQuelIngredient(sc);
         // Demande la quantité
-        System.out.println("Quelle quantité ? (>0 obligatoirement)");
-        choixCorrect = false;
-        while(!choixCorrect) {
-            choix = sc.nextInt();
-            if(choix <= 0) {
-                System.err.println("Choix incorrect.");
-            } else {
-                choixCorrect = true;
-            }
-        }
+        int quantite = demanderQuantiteIngredient(sc);
         // Ajoute l'ingrédient
-        ajouterIngredient(ingredient, choix);
+        ajouterIngredient(ingredient, quantite);
     }
 
     public void ajouterIngredient(Ingredient i, int quantite) {
         if (quantite > 0) {
             int quantiteInitiale = this.ingredients.get(i);
             this.ingredients.replace(i, quantiteInitiale + quantite);
+            System.out.println(i.toString() +":" + quantite + " ajouté(s).");
         }
+    }
+
+    /**
+     * Demande quel ingrédient.
+     *
+     * @param sc Scanner
+     * @return Numéro de l'ingrédient
+     */
+    public static Ingredient demanderQuelIngredient(Scanner sc) {
+        Ingredient[] tabIngredients = Ingredient.values();
+        System.out.println("Quel ingrédient ?");
+        for (int i = 0; i < tabIngredients.length; i++) {
+            System.out.println((i + 1) + "/ " + tabIngredients[i].toString());
+        }
+
+        do {
+            System.out.print("=> ");
+            int choix = sc.nextInt();
+            if (choix < 1 || choix > tabIngredients.length) {
+                System.err.println("Choix incorrect.");
+            } else {
+                return tabIngredients[choix-1];
+            }
+        } while (true);
+
+    }
+
+    public static int demanderQuantiteIngredient(Scanner sc) {
+        System.out.println("Quelle quantité ? (>0 obligatoirement)");
+        do {
+            System.out.print("=> ");
+            int choix = sc.nextInt();
+            if (choix <= 0) {
+                System.err.println("Choix incorrect.");
+            } else {
+                return choix;
+            }
+        } while (true);
+
     }
 
     /**
@@ -91,7 +108,7 @@ public class StockIngredient {
     public int getQuantite(Ingredient i) {
         return this.ingredients.get(i);
     }
-    
+
     /**
      * Affiche le stock des ingrédients de la machine à café.
      */
@@ -99,7 +116,7 @@ public class StockIngredient {
         System.out.println("Stock d'ingrédients de la machine : ");
         Set set = this.ingredients.keySet();
         Iterator it = set.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Ingredient i = (Ingredient) it.next();
             int quantite = this.ingredients.get(i);
             System.out.println(i.toString() + " => " + quantite);
