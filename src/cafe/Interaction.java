@@ -82,7 +82,7 @@ public class Interaction {
             String str = sc.nextLine();
             if (str.length() > 30) {
                 System.err.println("Erreur: veuillez entrer une chaîne inférieur à " + max + " caractères.");
-            } else {
+            } else if (!str.equals("")) {
                 return str;
             }
         }
