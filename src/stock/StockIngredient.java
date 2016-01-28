@@ -2,7 +2,9 @@ package stock;
 
 import cafe.Ingredient;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -89,5 +91,19 @@ public class StockIngredient {
      */
     public int getQuantite(Ingredient i) {
         return this.ingredients.get(i);
+    }
+    
+    /**
+     * Affiche le stock des ingrédients de la machine à café.
+     */
+    public void afficherStockIngredient() {
+        System.out.println("Stock d'ingrédients de la machine : ");
+        Set set = this.ingredients.keySet();
+        Iterator it = set.iterator();
+        while(it.hasNext()) {
+            Ingredient i = (Ingredient) it.next();
+            int quantite = this.ingredients.get(i);
+            System.out.println(i.toString() + " => " + quantite);
+        }
     }
 }

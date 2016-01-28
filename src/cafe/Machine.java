@@ -41,6 +41,9 @@ public class Machine {
                 case 5:
                     stock.StockIngredient.getStock().ajouterIngredient();
                     break;
+                case 6:
+                    stock.StockIngredient.getStock().afficherStockIngredient();
+                    break;
                 default:
                                              
             }
