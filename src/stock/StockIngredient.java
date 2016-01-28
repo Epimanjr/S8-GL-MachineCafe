@@ -67,7 +67,7 @@ public class StockIngredient {
             if(choix <= 0) {
                 System.err.println("Choix incorrect.");
             } else {
-                choixCorrect = false;
+                choixCorrect = true;
             }
         }
         // Ajoute l'ingrédient
