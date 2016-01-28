@@ -39,6 +39,7 @@ public class Interaction {
 
     /**
      * Demande au clavier un nombre entier valide, avec un minimum.
+     *
      * @param min Min
      * @return Nombre entier valide
      */
@@ -69,11 +70,17 @@ public class Interaction {
             }
         }
     }
-    
+
+    /**
+     * Demande une chaîne au clavier avec une taille maximale.
+     *
+     * @param max Max
+     * @return Chaine valide
+     */
     public static String demanderStringAvecLongueurMax(int max) {
-        while(true) {
+        while (true) {
             String str = sc.nextLine();
-            if(str.length() > 30) {
+            if (str.length() > 30) {
                 System.err.println("Erreur: veuillez entrer une chaîne inférieur à " + max + " caractères.");
             } else {
                 return str;

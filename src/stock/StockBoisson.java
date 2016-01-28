@@ -61,12 +61,10 @@ public class StockBoisson {
         if (this.boissons.isEmpty()) {
             System.err.println("Erreur: aucune boisson à modifier");
         } else {
-            Scanner sc = new Scanner(System.in);
-
             listerBoissons();
             Boisson b = demanderQuelleBoisson();
             if (b != null) {
-                gestionModification(sc, b);
+                gestionModification(b);
             }
         }
     }
@@ -74,10 +72,11 @@ public class StockBoisson {
     /**
      * Gestion d'une modification d'une boisson.
      *
-     * @param sc Scanner
      * @param boisson Boisson
      */
-    public void gestionModification(Scanner sc, Boisson boisson) {
+    public void gestionModification(Boisson boisson) {
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("Que voulez-vous modifier ?\n1/ Prix de la boisson.\n2/ Un ingrédient.\n3/ Plus rien!");
         boolean flag = false;
         while (!flag) {
@@ -85,14 +84,14 @@ public class StockBoisson {
             switch (choixModif) {
                 case 1:
                     flag = true;
-                    int prix = demanderPrix(sc);
+                    int prix = demanderPrix();
                     boisson.setPrix(prix);
                     System.out.println("Modification OK");
                     break;
                 case 2:
                     flag = true;
-                    Ingredient ingredient = StockIngredient.demanderQuelIngredient(sc);
-                    int quantite = StockIngredient.demanderQuantiteIngredient(sc);
+                    Ingredient ingredient = StockIngredient.demanderQuelIngredient();
+                    int quantite = StockIngredient.demanderQuantiteIngredient();
                     boisson.setIngredient(ingredient, quantite);
                     System.out.println("Modification OK");
                     break;
@@ -110,7 +109,6 @@ public class StockBoisson {
     /**
      * Demande à l'utilisateur un choix de boisson
      *
-     * @param sc Scanner
      * @return Numéro boisson
      */
     public Boisson demanderQuelleBoisson() {
@@ -144,10 +142,10 @@ public class StockBoisson {
             Scanner sc = new Scanner(System.in);
             HashMap<Ingredient, Integer> recetteBoisson = new HashMap<>();
 
-            String nomBoisson = demanderNom(sc);
-            int prixBoisson = demanderPrix(sc);
+            String nomBoisson = demanderNom();
+            int prixBoisson = demanderPrix();
             for (Ingredient i : Ingredient.values()) {
-                int quantite = quantiteIngredient(sc, i);
+                int quantite = quantiteIngredient(i);
                 recetteBoisson.put(i, quantite);
             }
 
@@ -182,35 +180,20 @@ public class StockBoisson {
     /**
      * Interactivité pour demander la quantité d'UN ingrédient.
      *
-     * @param sc Scanne
      * @param i Ingrédient concerné
      * @return Quantité
      */
-    private int quantiteIngredient(Scanner sc, Ingredient i) {
+    private int quantiteIngredient(Ingredient i) {
         System.out.print("Quantité de " + i.toString() + " (>=0) : ");
-        do {
-            int quantite;
-            try {
-                quantite = sc.nextInt();
-                if (quantite < 0) {
-                    System.err.println("Erreur: la quantité doit être >= 0.");
-                } else {
-                    return quantite;
-                }
-            } catch (InputMismatchException e) {
-                System.err.println("Erreur: veuillez entrer un entier valide.");
-                sc.nextLine();
-            }
-        } while (true);
+        return Interaction.demanderEntierAvecMin(0);
     }
 
     /**
      * Interactivité pour demander le prix de la boisson.
      *
-     * @param sc Scanner
      * @return Prix
      */
-    private int demanderPrix(Scanner sc) {
+    private int demanderPrix() {
         System.out.print("Prix de la boisson (>0) : ");
         return Interaction.demanderEntierAvecMin(1);
     }
@@ -218,35 +201,29 @@ public class StockBoisson {
     /**
      * Interactivité pour demander le nom de la boisson.
      *
-     * @param sc Scanner
      * @return Nom
      */
-    private String demanderNom(Scanner sc) {
+    private String demanderNom() {
         System.out.print("Nom de la boisson (max 30 caractères) : ");
-        do {
-            String nomBoisson = "";
-            try {
-                nomBoisson = sc.nextLine();
-                if (nomBoisson.length() > 30) {
-                    System.err.println("Erreur: la taille est > 30 caractères");
-                } else {
-                    boolean boissonExiste = false;
-                    for (Boisson b : this.boissons) {
-                        if (b.getNom().equals(nomBoisson)) {
-                            System.err.println("Erreur: le nom de cette boisson existe déjà");
-                            boissonExiste = true;
-                            break;
-                        }
-                    }
-                    if (!boissonExiste) {
-                        return nomBoisson;
-                    }
-                }
-            } catch (InputMismatchException e) {
-                System.err.println("Erreur: veuillez entrer une chaîne valide.");
+        while (true) {
+            String nom = Interaction.demanderStringAvecLongueurMax(30);
+            if (testerNomBoisson(nom)) {
+                return nom;
+            } else {
+                System.err.println("Erreur: ce nom de boisson est déjà utilisé.");
             }
+        }
+    }
 
-        } while (true);
+    /**
+     * Test l'unicité du nom de la boisson.
+     *
+     * @param nomBoisson Nom
+     * @return Faux si déjà utilisé
+     */
+    private boolean testerNomBoisson(String nomBoisson) {
+        // Expression fonctionnel
+        return this.boissons.stream().noneMatch((b) -> (nomBoisson.equals(b.getNom())));
     }
 
     /**
