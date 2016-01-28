@@ -61,5 +61,14 @@ public class StockBoissonTest {
     public void testPrixBoisson() {
         assertEquals(stockBoissons.getBoissons().get(0).getPrix(), 1);
     }
+    
+    @Test
+    public void testUniciteBoisson() {
+        HashMap<Ingredient, Integer> recette = new HashMap<>();
+        for (Ingredient i : Ingredient.values()) {
+            recette.put(i, (int) (Math.random() * 10));
+        }
+        stockBoissons.ajouterBoisson("Chocolat", 1, recette);
+    }
 
 }
