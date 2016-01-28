@@ -5,6 +5,7 @@
  */
 package stock;
 
+import cafe.Ingredient;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,7 +19,10 @@ import static org.junit.Assert.*;
  */
 public class StockIngredientTest {
     
+    StockIngredient stockIngredient;
+    
     public StockIngredientTest() {
+        stockIngredient = StockIngredient.getStock();
     }
     
     @BeforeClass
@@ -37,6 +41,18 @@ public class StockIngredientTest {
     public void tearDown() {
     }
 
+    @Test
+    public void ajouterPositif() {
+        stockIngredient.ajouterIngredient(Ingredient.LAIT, 2);
+        assertEquals(stockIngredient.getQuantite(Ingredient.LAIT), 2);
+    }
+    
+    @Test
+    public void ajouterNegatif() {
+        stockIngredient.ajouterIngredient(Ingredient.CHOCOLAT, -2);
+        assertEquals(stockIngredient.getQuantite(Ingredient.CHOCOLAT), 0);
+    }
+    
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
