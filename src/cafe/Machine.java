@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @author maxime
  */
 public class Machine {
-    
+
     private static String menu = ""
             + "\n 1 - Acheter une boisson"
             + "\n 2 - Ajouter une boisson"
@@ -26,20 +26,26 @@ public class Machine {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Integer choix = 0;
-        do{
+        do {
             System.out.println(menu);
             System.out.println("=> ");
-            
-            try{
+
+            try {
                 choix = sc.nextInt();
-            }catch(InputMismatchException e){
-                continue;
+            } catch (InputMismatchException e) {
+                System.err.println("Erreur, veuillez entrer un nombre entier.");
+                sc.nextLine();
             }
-            
-            
-            switch(choix){
+
+            switch (choix) {
                 case 2:
                     stock.StockBoisson.getStock().ajouterBoisson();
+                    break;
+                case 3:
+                    stock.StockBoisson.getStock().modifierBoisson();
+                    break;
+                case 4:
+                    stock.StockBoisson.getStock().supprimerBoisson();
                     break;
                 case 5:
                     stock.StockIngredient.getStock().ajouterIngredient();
@@ -48,10 +54,10 @@ public class Machine {
                     stock.StockIngredient.getStock().afficherStockIngredient();
                     break;
                 default:
-                                             
+                    break;
             }
-            
-        } while(choix != 7);
+
+        } while (choix != 7);
     }
-    
+
 }

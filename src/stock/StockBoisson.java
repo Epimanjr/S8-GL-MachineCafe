@@ -4,6 +4,7 @@ import cafe.Boisson;
 import cafe.Ingredient;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -29,8 +30,27 @@ public class StockBoisson {
     /**
      * Construit le stock de boisson.
      */
-    public StockBoisson() {
+    private StockBoisson() {
 
+    }
+
+    /**
+     * Interactivité pour la suppression d'une boisson.
+     */
+    public void supprimerBoisson() {
+        if (this.boissons.isEmpty()) {
+            System.err.println("Erreur: aucune boisson à supprimer");
+        } else {
+            Scanner sc = new Scanner(System.in);
+
+            listerBoissons();
+            int choix = demanderQuelleBoisson(sc);
+            if (choix != (-1)) {
+                this.boissons.remove(choix);
+                System.out.println("Boisson supprimée avec succès");
+            }
+
+        }
     }
 
     /**
@@ -44,7 +64,9 @@ public class StockBoisson {
 
             listerBoissons();
             int choix = demanderQuelleBoisson(sc);
-            gestionModification(sc, choix);
+            if (choix != (-1)) {
+                gestionModification(sc, choix);
+            }
         }
     }
 
@@ -57,28 +79,31 @@ public class StockBoisson {
     public void gestionModification(Scanner sc, int choix) {
         System.out.println("Que voulez-vous modifier ?\n1/ Prix de la boisson.\n2/ Un ingrédient.\n3/ Plus rien!");
         boolean flag = false;
-        while(!flag) {
+        while (!flag) {
             int choixModif = sc.nextInt();
-            switch(choixModif) {
+            switch (choixModif) {
                 case 1:
+                    flag = true;
                     int prix = demanderPrix(sc);
-                    this.boissons.get(choix).setPrix(choix);
+                    this.boissons.get(choix).setPrix(prix);
                     System.out.println("Modification OK");
                     break;
                 case 2:
+                    flag = true;
                     Ingredient ingredient = StockIngredient.demanderQuelIngredient(sc);
                     int quantite = StockIngredient.demanderQuantiteIngredient(sc);
                     this.boissons.get(choix).setIngredient(ingredient, quantite);
                     System.out.println("Modification OK");
                     break;
                 case 3:
+                    flag = true;
                     break;
                 default:
                     System.err.println("Erreur: Mauvais choix!");
                     break;
             }
         }
-        
+
     }
 
     /**
@@ -90,12 +115,19 @@ public class StockBoisson {
     public int demanderQuelleBoisson(Scanner sc) {
         do {
             System.out.print("=> ");
-            int choix = sc.nextInt();
-            if (choix < 1 || choix > this.boissons.size()) {
-                System.err.println("Erreur: mauvais choix");
-            } else {
-                return choix - 1;
+            int choix;
+            try {
+                choix = sc.nextInt();
+                if (choix < 0 || choix > this.boissons.size()) {
+                    System.err.println("Erreur: mauvais choix");
+                } else {
+                    return choix - 1;
+                }
+            } catch (InputMismatchException e) {
+                System.err.println("Erreur: veuillez entrer un entier valide.");
+                sc.nextLine();
             }
+
         } while (true);
     }
 
@@ -107,6 +139,7 @@ public class StockBoisson {
         for (int i = 0; i < this.boissons.size(); i++) {
             System.out.println((i + 1) + "/ " + this.boissons.get(i).toString());
         }
+        System.out.println("(tapez 0 pour retourner au menu)");
     }
 
     /**
@@ -164,11 +197,17 @@ public class StockBoisson {
     private int quantiteIngredient(Scanner sc, Ingredient i) {
         System.out.print("Quantité de " + i.toString() + " (>=0) : ");
         do {
-            int quantite = sc.nextInt();
-            if (quantite < 0) {
-                System.err.println("Erreur: la quantité doit être >= 0.");
-            } else {
-                return quantite;
+            int quantite;
+            try {
+                quantite = sc.nextInt();
+                if (quantite < 0) {
+                    System.err.println("Erreur: la quantité doit être >= 0.");
+                } else {
+                    return quantite;
+                }
+            } catch (InputMismatchException e) {
+                System.err.println("Erreur: veuillez entrer un entier valide.");
+                sc.nextLine();
             }
         } while (true);
     }
@@ -182,11 +221,17 @@ public class StockBoisson {
     private int demanderPrix(Scanner sc) {
         System.out.print("Prix de la boisson (>0) : ");
         do {
-            int prix = sc.nextInt();
-            if (prix <= 0) {
-                System.err.println("Erreur: le prix doit être >0");
-            } else {
-                return prix;
+            int prix;
+            try {
+                prix = sc.nextInt();
+                if (prix <= 0) {
+                    System.err.println("Erreur: le prix doit être >0");
+                } else {
+                    return prix;
+                }
+            } catch (InputMismatchException e) {
+                System.err.println("Erreur: veuillez entrer un entier valide.");
+                sc.nextLine();
             }
         } while (true);
     }
@@ -200,12 +245,28 @@ public class StockBoisson {
     private String demanderNom(Scanner sc) {
         System.out.print("Nom de la boisson (max 30 caractères) : ");
         do {
-            String nomBoisson = sc.nextLine();
-            if (nomBoisson.length() > 30) {
-                System.err.println("Erreur: la taille est > 30 caractères");
-            } else {
-                return nomBoisson;
+            String nomBoisson = "";
+            try {
+                nomBoisson = sc.nextLine();
+                if (nomBoisson.length() > 30) {
+                    System.err.println("Erreur: la taille est > 30 caractères");
+                } else {
+                    boolean boissonExiste = false;
+                    for (Boisson b : this.boissons) {
+                        if (b.getNom().equals(nomBoisson)) {
+                            System.err.println("Erreur: le nom de cette boisson existe déjà");
+                            boissonExiste = true;
+                            break;
+                        }
+                    }
+                    if (!boissonExiste) {
+                        return nomBoisson;
+                    }
+                }
+            } catch (InputMismatchException e) {
+                System.err.println("Erreur: veuillez entrer une chaîne valide.");
             }
+
         } while (true);
     }
 

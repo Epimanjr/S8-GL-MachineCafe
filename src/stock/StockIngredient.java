@@ -2,6 +2,7 @@ package stock;
 
 import cafe.Ingredient;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -56,7 +57,7 @@ public class StockIngredient {
         if (quantite > 0) {
             int quantiteInitiale = this.ingredients.get(i);
             this.ingredients.replace(i, quantiteInitiale + quantite);
-            System.out.println(i.toString() +":" + quantite + " ajouté(s).");
+            System.out.println(i.toString() + ":" + quantite + " ajouté(s).");
         }
     }
 
@@ -75,12 +76,19 @@ public class StockIngredient {
 
         do {
             System.out.print("=> ");
-            int choix = sc.nextInt();
-            if (choix < 1 || choix > tabIngredients.length) {
-                System.err.println("Choix incorrect.");
-            } else {
-                return tabIngredients[choix-1];
+            int choix = 0;
+            try {
+                choix = sc.nextInt();
+                if (choix < 1 || choix > tabIngredients.length) {
+                    System.err.println("Choix incorrect.");
+                } else {
+                    return tabIngredients[choix - 1];
+                }
+            } catch (InputMismatchException e) {
+                System.err.println("Erreur: veuillez entrer un nombre entier.");
+                sc.nextLine();
             }
+
         } while (true);
 
     }
@@ -89,12 +97,19 @@ public class StockIngredient {
         System.out.println("Quelle quantité ? (>0 obligatoirement)");
         do {
             System.out.print("=> ");
-            int choix = sc.nextInt();
-            if (choix <= 0) {
-                System.err.println("Choix incorrect.");
-            } else {
-                return choix;
+            int choix = 0;
+            try {
+                choix = sc.nextInt();
+                if (choix <= 0) {
+                    System.err.println("Choix incorrect.");
+                } else {
+                    return choix;
+                }
+            } catch (InputMismatchException e) {
+                System.err.println("Erreur: veuillez entrer un nombre entier.");
+                sc.nextLine();
             }
+
         } while (true);
 
     }
