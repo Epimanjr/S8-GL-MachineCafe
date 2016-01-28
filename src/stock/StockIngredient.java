@@ -2,6 +2,7 @@ package stock;
 
 import cafe.Ingredient;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  *
@@ -40,11 +41,44 @@ public class StockIngredient {
      * Méthode qui ajoute un ingrédient.
      */
     public void ajouterIngredient() {
-        //TODO
+        Ingredient[] tabIngredients = Ingredient.values();
+        System.out.println("Quel ingrédient ?");
+        for(int i=0;i<tabIngredients.length;i++) {
+            System.out.println((i+1) + "/ " + tabIngredients[i].toString());
+        }
+        Scanner sc = new Scanner(System.in);
+        // Demande l'ingrédient
+        boolean choixCorrect = false;
+        int choix = 0;
+        while(!choixCorrect) {
+            choix = sc.nextInt();
+            if(choix < 1 || choix > tabIngredients.length) {
+                System.err.println("Choix incorrect.");
+            } else {
+                choixCorrect = true;
+            }
+        }
+        Ingredient ingredient = tabIngredients[choix];
+        // Demande la quantité
+        System.out.println("Quelle quantité ? (>0 obligatoirement)");
+        choixCorrect = false;
+        while(!choixCorrect) {
+            choix = sc.nextInt();
+            if(choix <= 0) {
+                System.err.println("Choix incorrect.");
+            } else {
+                choixCorrect = false;
+            }
+        }
+        // Ajoute l'ingrédient
+        ajouterIngredient(ingredient, choix);
     }
 
     public void ajouterIngredient(Ingredient i, int quantite) {
-        //TODO
+        if (quantite > 0) {
+            int quantiteInitiale = this.ingredients.get(i);
+            this.ingredients.replace(i, quantiteInitiale + quantite);
+        }
     }
 
     /**
