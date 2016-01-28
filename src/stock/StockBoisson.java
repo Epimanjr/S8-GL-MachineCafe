@@ -106,7 +106,16 @@ public class StockBoisson {
             }
         } while (true);
     }
+    
+    /**
+     * Récupère la liste des boissons
+     * @return Boisson
+     */
+    public ArrayList<Boisson> getBoissons() {
+        return boissons;
+    }
 
+    
     /**
      * Récupère le stock de boisson.
      *
