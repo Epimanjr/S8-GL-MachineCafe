@@ -9,7 +9,6 @@ import java.util.Set;
 /**
  *
  * @author Maxime BLAISE
- * @author Geoffrey GAILLARD
  */
 public class StockIngredient {
 
