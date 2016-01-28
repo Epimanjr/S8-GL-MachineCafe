@@ -38,6 +38,11 @@ public class Boisson {
         // TODO
     }
     
+    
+    public boolean estPossible(stock.StockIngredient stock){
+        return false;
+        // TODO
+    }
      
         
         
