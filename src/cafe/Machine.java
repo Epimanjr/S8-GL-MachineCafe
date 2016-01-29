@@ -103,7 +103,7 @@ public class Machine {
     /**
      * Ajoute beaucoup de choses pour simuler
      */
-    private static void ajouteBeaucoupDeChose() {
+    public static void ajouteBeaucoupDeChose() {
         System.out.println("Ajout de beaucoup de choses !!");
         // Ajout d'ingrédients
         stock.StockIngredient.getStock().ajouterIngredient(Ingredient.LAIT, 10);
