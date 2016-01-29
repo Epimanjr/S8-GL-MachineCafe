@@ -81,15 +81,35 @@ public class Boisson {
      * @param argentDonne Argent donné par l'acheteur
      * @param stock Stock à utiliser
      * @return L'argent à rendre
+     * @throws cafe.MontantInsufisantException
+     * @throws cafe.StockInsufisantException
      */
-    public int acheter(int argentDonne, StockIngredient stock) {
+    public int acheter(int argentDonne, StockIngredient stock)
+        throws MontantInsufisantException,
+                StockInsufisantException
+    {
         // TODO
         // Vérification de la possibilité
-
-        // Vérification de l'argent (ça suffit ?)
+        
+        int prix = getPrix();  // on ne sait jamais si un calcul
+                               // de TVA traine dans un getter
+        
+        if(argentDonne < prix){
+            throw new MontantInsufisantException(getPrix());
+        }
+        if(!estPossible(stock)){
+            throw new StockInsufisantException(getIngredientManquant(stock));
+        }
+        // on est OK !
+        
+        
         // Enlèvement des ingrédients du stock.
+        for(Ingredient i : recette.keySet()){
+            stock.enleverQuantite(i, recette.get(i));
+        }
+        
         // Monnaie à rendre
-        return 0;
+        return argentDonne - prix;
     }
 
     @Override
@@ -103,6 +123,29 @@ public class Boisson {
         }
         res += "}";
         return res;
+    }
+    
+    /**
+     * Donne l'ingredient manquant en cas d'achat impossible
+     * (pour cause de manque)
+     * @param stock Stock de réference
+     * @return l'ingrédient manquant
+     */
+    private Ingredient getIngredientManquant(StockIngredient stock){
+        /* 
+            Pas bien mais pas le choix en Java
+            Rend la méthode plus robuste mais ne devrais 
+            pas exister -> programmation défensive        
+        */
+        Ingredient manquant = null; 
+                                     
+        for(Ingredient i : recette.keySet()){
+            if(stock.getQuantite(i) < recette.get(i)){
+                manquant = i;
+                break;
+            }
+        }
+        return manquant;
     }
 
 }

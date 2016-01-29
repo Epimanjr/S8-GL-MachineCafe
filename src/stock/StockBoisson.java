@@ -223,8 +223,10 @@ public class StockBoisson {
      * @return Faux si déjà utilisé
      */
     private boolean testerNomBoisson(String nomBoisson) {
-        // Expression fonctionnel
-        return this.boissons.stream().noneMatch((b) -> (nomBoisson.equals(b.getNom())));
+        // Expression fonctionnelle
+        return this.boissons.stream().noneMatch(
+                (Boisson b) -> nomBoisson.equals(b.getNom())
+        );
     }
 
     /**

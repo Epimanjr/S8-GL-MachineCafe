@@ -130,4 +130,6 @@ public class StockIngredient {
             System.out.println(i.toString() + " => " + quantite);
         }
     }
+    
+    
 }

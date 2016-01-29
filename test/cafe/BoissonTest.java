@@ -5,7 +5,10 @@
  */
 package cafe;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import junit.framework.TestCase;
+import org.junit.Test;
 import stock.StockIngredient;
 
 /**
@@ -28,6 +31,24 @@ public class BoissonTest extends TestCase {
         this.boissonTest = mocca;
     }
 
+    private StockIngredient getStockPlein(){
+        StockIngredient stock = new StockIngredient();
+        stock.ajouterIngredient(Ingredient.LAIT, 10);
+        stock.ajouterIngredient(Ingredient.CHOCOLAT, 10);
+        stock.ajouterIngredient(Ingredient.CAFE, 10);
+        stock.ajouterIngredient(Ingredient.SUCRE, 10);
+        return stock;
+    }
+    
+    private StockIngredient getStockVide(){
+        StockIngredient stock = new StockIngredient();
+        stock.ajouterIngredient(Ingredient.LAIT, 10);
+        stock.ajouterIngredient(Ingredient.CHOCOLAT, 10);
+        stock.ajouterIngredient(Ingredient.CAFE, 1);  //  <---------------------
+        stock.ajouterIngredient(Ingredient.SUCRE, 10);
+        
+        return stock;
+    }
     
     
     /**
@@ -36,12 +57,7 @@ public class BoissonTest extends TestCase {
     public void testEstPossibleCorrecte() {
         System.out.println("estPossible-Correct");
         
-        StockIngredient stock = new StockIngredient();
-        stock.ajouterIngredient(Ingredient.LAIT, 10);
-        stock.ajouterIngredient(Ingredient.CHOCOLAT, 10);
-        stock.ajouterIngredient(Ingredient.CAFE, 10);
-        stock.ajouterIngredient(Ingredient.SUCRE, 10);
-        
+        StockIngredient stock= getStockPlein();
         
         assertTrue(this.boissonTest.estPossible(stock));
     }
@@ -53,14 +69,68 @@ public class BoissonTest extends TestCase {
     public void testEstPossibleIncorrect() {
         System.out.println("estPossible-Correct");
         
-        StockIngredient stock = new StockIngredient();
-        stock.ajouterIngredient(Ingredient.LAIT, 10);
-        stock.ajouterIngredient(Ingredient.CHOCOLAT, 10);
-        stock.ajouterIngredient(Ingredient.CAFE, 1);  //  <---------------------
-        stock.ajouterIngredient(Ingredient.SUCRE, 10);
+        StockIngredient stockVide = getStockVide();
+       
+        assertFalse(this.boissonTest.estPossible(stockVide));
+    }
+    
+    
+    /**
+     * Test l'achat avec un montant trop faible
+     * 
+     */
+    public void testAchatBoissonArgent() {
+        int montant = 2;
+        StockIngredient stockPlein = getStockPlein();
+        
+        try{
+            boissonTest.acheter(montant,stockPlein);
+            fail("La boisson a accepté un montant inferieur à son prix");
+        } catch (MontantInsufisantException ex) {
+            assertEquals(ex.getPrixAttendu(), boissonTest.getPrix());
+        } catch (StockInsufisantException ex) {
+            fail("La boisson a propagée une exception non attentue dans "
+                    + "ce context.");
+        }
         
         
-        assertFalse(this.boissonTest.estPossible(stock));
+    }
+    
+    /**
+     * Test l'achat avec un stock vide
+     */
+    @Test(expected=StockInsufisantException.class)
+    public void testAchatBoissonStock(){
+        
+        int montant = 10;
+        StockIngredient stockPlein = getStockVide();
+        
+        try {
+            boissonTest.acheter(montant,stockPlein);
+            fail("La boisson a été achetée avec un stock insufisant");
+        } catch (MontantInsufisantException ex) {
+            fail("La boisson a propagée une exception non attentue dans "
+                    + "ce context.");
+        } catch (StockInsufisantException ex) {
+            assertEquals(ex.getManquant(), Ingredient.CAFE);
+        }
+        
+    }
+    
+    @Test
+    public void testAchatBoissonOK(){
+        int montant = 10;
+        StockIngredient stockPlein = getStockPlein();
+        
+        int monnaieAttendue = montant - boissonTest.getPrix();
+        
+        try {
+            int rendu = boissonTest.acheter(montant, stockPlein);
+            assertEquals(monnaieAttendue, rendu);
+            
+        } catch (Exception ex) {
+            fail("Echec d'achat d'une boisson avec un contexte correct.");
+        }
     }
 
 
