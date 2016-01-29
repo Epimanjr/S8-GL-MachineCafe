@@ -24,7 +24,7 @@ public class StockIngredient {
     /**
      * Initialise les stock
      */
-    private StockIngredient() {
+    public StockIngredient() {
         // Initialise la map avec toutes les valeurs de l'énumération
         for (Ingredient i : Ingredient.values()) {
             ingredients.put(i, 0);
