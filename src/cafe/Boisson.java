@@ -49,9 +49,19 @@ public class Boisson {
     }
 
     /**
-     * Tester la possiblité de la boisson en fonction du stock.
-     * Pas de paramètre, car les stocks sont accessibles partout (Singleton)
-     * 
+     * Récupère la quantité d'un ingrédient.
+     *
+     * @param i Ingrédient
+     * @return Quantité
+     */
+    public int getIngredient(Ingredient i) {
+        return this.recette.get(i);
+    }
+
+    /**
+     * Tester la possiblité de la boisson en fonction du stock. Pas de
+     * paramètre, car les stocks sont accessibles partout (Singleton)
+     *
      * @param stock Stock à utiliser
      * @return Vrai/Faux
      */
@@ -59,18 +69,18 @@ public class Boisson {
         //return false;
         // TODO
         // Parcourir la liste des ingrédients
-        
+
         boolean possible = true;
-        
+
         for (Ingredient i : recette.keySet()) {
             int stockDispo = stock.getQuantite(i);
             int besoin = recette.get(i);
-            if(stockDispo < besoin){
+            if (stockDispo < besoin) {
                 possible = false;
                 break;
             }
         }
-        
+
         return possible;
     }
 
