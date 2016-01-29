@@ -19,7 +19,7 @@ public class BoissonTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        Boisson mocca = new Boisson("Moccacino", 3);
+        Boisson mocca = new Boisson("Mocaccino", 3);
         mocca.setIngredient(Ingredient.LAIT, 2);
         mocca.setIngredient(Ingredient.CAFE, 3);
         mocca.setIngredient(Ingredient.CHOCOLAT, 2);
