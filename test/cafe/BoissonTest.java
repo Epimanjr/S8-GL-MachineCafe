@@ -14,18 +14,36 @@ import stock.StockIngredient;
  */
 public class BoissonTest extends TestCase {
 
+    private Boisson boissonTest;
+    
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        Boisson mocca = new Boisson("Moccacino", 3);
+        mocca.setIngredient(Ingredient.LAIT, 2);
+        mocca.setIngredient(Ingredient.CAFE, 3);
+        mocca.setIngredient(Ingredient.CHOCOLAT, 2);
+        mocca.setIngredient(Ingredient.SUCRE, 1);
+        
+        this.boissonTest = mocca;
+    }
+
+    
+    
     /**
      * Test of estPossible method, of class Boisson.
      */
     public void testEstPossibleCorrecte() {
         System.out.println("estPossible-Correct");
-        StockIngredient stock = null;
-        Boisson instance = null;
-        boolean expResult = false;
-        boolean result = instance.estPossible(stock);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        StockIngredient stock = new StockIngredient();
+        stock.ajouterIngredient(Ingredient.LAIT, 10);
+        stock.ajouterIngredient(Ingredient.CHOCOLAT, 10);
+        stock.ajouterIngredient(Ingredient.CAFE, 10);
+        stock.ajouterIngredient(Ingredient.SUCRE, 10);
+        
+        
+        assertTrue(this.boissonTest.estPossible(stock));
     }
     
     
@@ -33,14 +51,16 @@ public class BoissonTest extends TestCase {
      * Test of estPossible method, of class Boisson.
      */
     public void testEstPossibleIncorrect() {
-        System.out.println("estPossible-Incorrect");
-        StockIngredient stock = null;
-        Boisson instance = null;
-        boolean expResult = false;
-        boolean result = instance.estPossible(stock);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("estPossible-Correct");
+        
+        StockIngredient stock = new StockIngredient();
+        stock.ajouterIngredient(Ingredient.LAIT, 10);
+        stock.ajouterIngredient(Ingredient.CHOCOLAT, 10);
+        stock.ajouterIngredient(Ingredient.CAFE, 1);  //  <---------------------
+        stock.ajouterIngredient(Ingredient.SUCRE, 10);
+        
+        
+        assertFalse(this.boissonTest.estPossible(stock));
     }
 
 
