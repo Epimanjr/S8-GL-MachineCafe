@@ -5,6 +5,7 @@
  */
 package graphic;
 
+import cafe.Boisson;
 import cafe.Ingredient;
 import cafe.Machine;
 import java.util.Arrays;
@@ -35,18 +36,16 @@ public class MainFrame extends Application {
      * Liste des ingrédients
      */
     public static final Ingredient[] listeIngredients = Ingredient.values();
-    private static BarChart<String, Number> bc;
+    public static BarChart<String, Number> bc;
+    public static BarChart<String, Number> bcBoissons;
     static XYChart.Series<String, Number> series1 = new XYChart.Series<>();
 
     @Override
     public void start(Stage primaryStage) {
+        Machine.ajouteBeaucoupDeChose();
         init(primaryStage);
+        primaryStage.setTitle("Gestion d'une machine à café");
         primaryStage.show();
-    }
-
-    public static void setStockIngredient() {
-        bc.getData().remove(0);
-        creerSerieAvecStockIngredients();
     }
 
     private static void creerSerieAvecStockIngredients() {
@@ -64,11 +63,23 @@ public class MainFrame extends Application {
         Group root = new Group();
         primaryStage.setScene(new Scene(root));
 
-        initVboxIngredients(root);
-
+        HBox hboxPrincipal = new HBox();
+        
+        initVboxIngredients(hboxPrincipal);
+        initVBoxBoissons(hboxPrincipal);
     }
 
-    private void initVboxIngredients(Group root) {
+    private void initVBoxBoissons(HBox root) {
+        VBox vbox = new VBox();
+        
+        root.getChildren().add(vbox);
+    }
+    /**
+     * Affichage des ingrédients
+     *
+     * @param root .
+     */
+    private void initVboxIngredients(HBox root) {
         VBox vbox = new VBox();
         HBox hbox = new HBox();
         Button boutonAjouterIngredients = new Button("Ajouter du stock à un ingrédient");
@@ -82,12 +93,53 @@ public class MainFrame extends Application {
         root.getChildren().add(vbox);
     }
 
+    /**
+     * Création de l'histogramme des boissons
+     * @return 
+     */
+     protected BarChart<String, Number> createChartBoissons() {
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        yAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(yAxis,"$",null));
+        final BarChart<String,Number> bc = new BarChart<String,Number>(xAxis,yAxis);
+        // setup chart
+        bc.setTitle("Visualisation des boissons");
+        xAxis.setLabel("Boissons");
+        yAxis.setLabel("Ingrédients Nécessaire");
+        for(Boisson b : stock.StockBoisson.getStock().getBoissons()) {
+            XYChart.Series<String,Number> series1 = new XYChart.Series<>();
+            series1.setName(b.getNom());
+            
+        }
+
+        // create sample data
+       /* series1.getData().add(new XYChart.Data<String,Number>(years[0], 567));
+        series1.getData().add(new XYChart.Data<String,Number>(years[1], 1292));
+        series1.getData().add(new XYChart.Data<String,Number>(years[2], 2180));
+        series2.getData().add(new XYChart.Data<String,Number>(years[0], 956));
+        series2.getData().add(new XYChart.Data<String,Number>(years[1], 1665));
+        series2.getData().add(new XYChart.Data<String,Number>(years[2], 2450));
+        series3.getData().add(new XYChart.Data<String,Number>(years[0], 800));
+        series3.getData().add(new XYChart.Data<String,Number>(years[1], 1000));
+        series3.getData().add(new XYChart.Data<String,Number>(years[2], 2800));
+        bc.getData().add(series1);
+        bc.getData().add(series2);
+        bc.getData().add(series3);*/
+        return bc;
+    }
+     
+    /**
+     * Création de l'histogramme
+     *
+     * @return BarChart
+     */
     protected BarChart<String, Number> createChart() {
         final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis(0, 100, 1);
+        final NumberAxis yAxis = new NumberAxis();
+        yAxis.setAutoRanging(true);
         bc = new BarChart<>(xAxis, yAxis);
         // setup chart
-        bc.setTitle("Stock des ingrédients");
+        bc.setTitle("Etat du stock des ingrédients de la machine");
         xAxis.setLabel("Ingrédients");
         yAxis.setLabel("Quantité");
         creerSerieAvecStockIngredients();

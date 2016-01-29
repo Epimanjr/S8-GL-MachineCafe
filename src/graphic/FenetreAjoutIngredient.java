@@ -10,6 +10,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,6 +37,7 @@ public class FenetreAjoutIngredient extends Stage {
         Group group = new Group();
         this.setScene(new Scene(group));
         initComponents(group);
+        this.setTitle("Ajout d'ingrédients");
     }
 
     /**
@@ -56,7 +59,7 @@ public class FenetreAjoutIngredient extends Stage {
             HBox hbox = new HBox();
             Label label = new Label(MainFrame.listeIngredients[i].toString());
             label.setPrefWidth(120);
-            saisies[i] = new TextField();
+            saisies[i] = new TextField("0");
             saisies[i].setMaxWidth(50);
             hbox.getChildren().addAll(label, saisies[i]);
             vboxCentral.getChildren().add(hbox);
@@ -65,30 +68,56 @@ public class FenetreAjoutIngredient extends Stage {
         Button valider = new Button("Valider l'ajout");
         Label label = new Label("");
         valider.setOnAction((ActionEvent event) -> {
-            // Vérification
-            boolean flag = true;
-            int[] tabValeur = new int[saisies.length];
-            for(int i=0;i<saisies.length;i++) {
-                if(!valeurCorrecte(saisies[i].getText(), 0, 30000)) {
-                    flag = false;
-                    label.setText("Valeurs incorrectes");
-                    break;
-                } else {
-                    tabValeur[i] = new Integer(saisies[i].getText());
-                }
-            }
-            if(flag) {
-                label.setText("OK");
-                for(int i=0;i<saisies.length;i++) {
-                    stock.StockIngredient.getStock().ajouterIngredient(MainFrame.listeIngredients[i], tabValeur[i]);
-                }
-                MainFrame.setStockIngredient();
-                this.close();
-            }
+            actionBoutonValider(saisies, label);
         });
         vboxCentral.getChildren().addAll(valider, label);
         group.getChildren().add(vboxCentral);
 
+    }
+
+    /**
+     * Action du bouton valider.
+     *
+     * @param saisies Saisies de l'utilisateur
+     * @param label Label résultat
+     */
+    private void actionBoutonValider(TextField[] saisies, Label label) {
+        // Vérification
+        boolean flag = true;
+        int[] tabValeur = new int[saisies.length];
+        for (int i = 0; i < saisies.length; i++) {
+            if (!valeurCorrecte(saisies[i].getText(), 0, 30000)) {
+                flag = false;
+                label.setText("Valeurs incorrectes");
+                break;
+            } else {
+                tabValeur[i] = new Integer(saisies[i].getText());
+            }
+        }
+        if (flag) {
+            traitementModification(saisies, label, tabValeur);
+        }
+    }
+
+    /**
+     * Si les valeurs saisies sont correctes
+     *
+     * @param saisies
+     * @param label
+     */
+    private void traitementModification(TextField[] saisies, Label label, int[] tabValeur) {
+        label.setText("");
+        this.close();
+        XYChart.Series<String, Number> s = (XYChart.Series<String, Number>) MainFrame.bc.getData().get(0);
+        for (int i = 0; i < saisies.length; i++) {
+            if (tabValeur[i] > 0) {
+                stock.StockIngredient.getStock().ajouterIngredient(MainFrame.listeIngredients[i], tabValeur[i]);
+
+                BarChart.Data data = s.getData().get(i);
+                data.setYValue(stock.StockIngredient.getStock().getQuantite(MainFrame.listeIngredients[i]));
+            }
+            saisies[i].setText("0");
+        }
     }
 
     /**
