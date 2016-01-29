@@ -33,7 +33,8 @@ public class Machine {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Machine.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Machine.class.getName())
+                      .log(Level.SEVERE, null, ex);
             }
             System.out.println(menu);
             System.out.println("=> ");
@@ -81,11 +82,32 @@ public class Machine {
             stock.StockBoisson.getStock().listerBoissons();
             Boisson b = stock.StockBoisson.getStock().demanderQuelleBoisson();
 
+            boolean achatOk = false;
+            int accumulateurMonnaie = 0;
             if (b != null) {
                 // Achat
-                int argent = demanderArgent();
-                System.err.println("TODO");
-                //b.acheter(argent);
+                while(!achatOk){
+                    int monnaie = demanderArgentAvecAnnulationPossible();
+                    if(monnaie == 0){
+                        break; // annulation
+                    }
+                    accumulateurMonnaie += monnaie;
+                    try {
+                        accumulateurMonnaie = b.acheter(accumulateurMonnaie,
+                                            stock.StockIngredient.getStock());
+                        achatOk = true;
+                    } catch (MontantInsufisantException ex) {
+                        System.out.println("Montant insufisant : le prix est de "
+                                + ex.getPrixAttendu());
+                    } catch (StockInsufisantException ex) {
+                        System.out.println("La machine manque de "
+                                + ex.getManquant()+ "... annulation.");
+                        break;
+                    }
+                }
+                if(accumulateurMonnaie > 0){
+                    System.out.println("Rendu monnaie : "+ accumulateurMonnaie);
+                }
             }
         }
     }
@@ -98,6 +120,11 @@ public class Machine {
     private static int demanderArgent() {
         System.out.println("Entrer combien de monnaie : ");
         return Interaction.demanderEntierAvecMin(1);
+    }
+    
+    private static int demanderArgentAvecAnnulationPossible() {
+        System.out.println("Entrer combien de monnaie : (0 pour annuler)");
+        return Interaction.demanderEntierAvecMin(0);
     }
 
     /**
