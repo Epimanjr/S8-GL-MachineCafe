@@ -38,7 +38,6 @@ public class Boisson {
 
     public void setIngredient(Ingredient i, Integer qte) {
         //this.recette.replace(i, qte);
-        // TODO
     }
 
     public boolean estPossible(stock.StockIngredient stock) {
