@@ -5,3 +5,4 @@ manifest.mf
 .classpath
 .project
 /build/
+/dist/

@@ -1,6 +1,7 @@
 package stock;
 
 import cafe.Ingredient;
+import cafe.Interaction;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -43,16 +44,20 @@ public class StockIngredient {
      * Méthode qui ajoute un ingrédient.
      */
     public void ajouterIngredient() {
-        Scanner sc = new Scanner(System.in);
-
         // Demande l'ingrédient
-        Ingredient ingredient = demanderQuelIngredient(sc);
+        Ingredient ingredient = demanderQuelIngredient();
         // Demande la quantité
-        int quantite = demanderQuantiteIngredient(sc);
+        int quantite = demanderQuantiteIngredient();
         // Ajoute l'ingrédient
         ajouterIngredient(ingredient, quantite);
     }
 
+    /**
+     * Ajoute un ingrédient.
+     *
+     * @param i Ingrédient concerné
+     * @param quantite Quantité à ajouter
+     */
     public void ajouterIngredient(Ingredient i, int quantite) {
         if (quantite > 0) {
             int quantiteInitiale = this.ingredients.get(i);
@@ -64,54 +69,31 @@ public class StockIngredient {
     /**
      * Demande quel ingrédient.
      *
-     * @param sc Scanner
      * @return Numéro de l'ingrédient
      */
-    public static Ingredient demanderQuelIngredient(Scanner sc) {
+    public static Ingredient demanderQuelIngredient() {
+        // Affichage des ingrédients
         Ingredient[] tabIngredients = Ingredient.values();
         System.out.println("Quel ingrédient ?");
         for (int i = 0; i < tabIngredients.length; i++) {
             System.out.println((i + 1) + "/ " + tabIngredients[i].toString());
         }
-
-        do {
+        // Demande du numéro
+        while (true) {
             System.out.print("=> ");
-            int choix = 0;
-            try {
-                choix = sc.nextInt();
-                if (choix < 1 || choix > tabIngredients.length) {
-                    System.err.println("Choix incorrect.");
-                } else {
-                    return tabIngredients[choix - 1];
-                }
-            } catch (InputMismatchException e) {
-                System.err.println("Erreur: veuillez entrer un nombre entier.");
-                sc.nextLine();
-            }
-
-        } while (true);
-
+            int numeroIngredient = Interaction.demanderEntierEntreIntervalle(1, tabIngredients.length);
+            return tabIngredients[numeroIngredient - 1];
+        }
     }
 
-    public static int demanderQuantiteIngredient(Scanner sc) {
-        System.out.println("Quelle quantité ? (>0 obligatoirement)");
-        do {
-            System.out.print("=> ");
-            int choix = 0;
-            try {
-                choix = sc.nextInt();
-                if (choix <= 0) {
-                    System.err.println("Choix incorrect.");
-                } else {
-                    return choix;
-                }
-            } catch (InputMismatchException e) {
-                System.err.println("Erreur: veuillez entrer un nombre entier.");
-                sc.nextLine();
-            }
-
-        } while (true);
-
+    /**
+     * Demande d'une quantité.
+     *
+     * @return Entier valide
+     */
+    public static int demanderQuantiteIngredient() {
+        System.out.println("Quelle quantité (>=0 obligatoirement) ?");
+        return Interaction.demanderEntierAvecMin(0);
     }
 
     /**
