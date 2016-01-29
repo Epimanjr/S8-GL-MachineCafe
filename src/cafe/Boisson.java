@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import stock.StockIngredient;
+
 public class Boisson {
 
     private int prix;
@@ -50,15 +52,26 @@ public class Boisson {
      * Tester la possiblité de la boisson en fonction du stock.
      * Pas de paramètre, car les stocks sont accessibles partout (Singleton)
      * 
+     * @param stock Stock à utiliser
      * @return Vrai/Faux
      */
-    public boolean estPossible() {
-        return false;
+    public boolean estPossible(StockIngredient stock) {
+        //return false;
         // TODO
         // Parcourir la liste des ingrédients
-
-        // Pour chaque, comparer stockNecessaire et stockDisponible, retourner faux dès que pas possible
-        // Retourner vrai
+        
+        boolean possible = true;
+        
+        for (Ingredient i : recette.keySet()) {
+            int stockDispo = stock.getQuantite(i);
+            int besoin = recette.get(i);
+            if(stockDispo < besoin){
+                possible = false;
+                break;
+            }
+        }
+        
+        return possible;
     }
 
     /**
@@ -66,9 +79,10 @@ public class Boisson {
      * enlève les ingrédients du stock Calcul la monnaie à rendre et la rend.
      *
      * @param argentDonne Argent donné par l'acheteur
+     * @param stock Stock à utiliser
      * @return L'argent à rendre
      */
-    public int acheter(int argentDonne) {
+    public int acheter(int argentDonne, StockIngredient stock) {
         // TODO
         // Vérification de la possibilité
 
