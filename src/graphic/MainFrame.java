@@ -64,16 +64,18 @@ public class MainFrame extends Application {
         primaryStage.setScene(new Scene(root));
 
         HBox hboxPrincipal = new HBox();
-        
+
         initVboxIngredients(hboxPrincipal);
         initVBoxBoissons(hboxPrincipal);
+        root.getChildren().add(hboxPrincipal);
     }
 
     private void initVBoxBoissons(HBox root) {
         VBox vbox = new VBox();
-        
+        vbox.getChildren().add(createChartBoissons());
         root.getChildren().add(vbox);
     }
+
     /**
      * Affichage des ingrédients
      *
@@ -95,39 +97,37 @@ public class MainFrame extends Application {
 
     /**
      * Création de l'histogramme des boissons
-     * @return 
+     *
+     * @return
      */
-     protected BarChart<String, Number> createChartBoissons() {
+    protected BarChart<String, Number> createChartBoissons() {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        yAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(yAxis,"$",null));
-        final BarChart<String,Number> bc = new BarChart<String,Number>(xAxis,yAxis);
+        bcBoissons = new BarChart<>(xAxis, yAxis);
         // setup chart
-        bc.setTitle("Visualisation des boissons");
+        bcBoissons.setTitle("Visualisation des boissons");
         xAxis.setLabel("Boissons");
         yAxis.setLabel("Ingrédients Nécessaire");
-        for(Boisson b : stock.StockBoisson.getStock().getBoissons()) {
-            XYChart.Series<String,Number> series1 = new XYChart.Series<>();
-            series1.setName(b.getNom());
-            
+        /* for(Boisson b : stock.StockBoisson.getStock().getBoissons()) {
+            XYChart.Series<String,Number> seriesB = new XYChart.Series<>();
+            seriesB.setName(b.getNom());
+            for(Ingredient i : listeIngredients) {
+                seriesB.getData().add(new XYChart.Data<>(i.toString(), b.getIngredient(i)));
+            }
+            bcBoissons.getData().add(seriesB);
+        }*/
+        for (Ingredient i : listeIngredients) {
+            XYChart.Series<String,Number> seriesB = new XYChart.Series<>();
+            seriesB.setName(i.toString());
+            for(Boisson b : stock.StockBoisson.getStock().getBoissons()) {
+                seriesB.getData().add(new XYChart.Data<>(b.getNom(), b.getIngredient(i)));
+            }
+            bcBoissons.getData().add(seriesB);
         }
 
-        // create sample data
-       /* series1.getData().add(new XYChart.Data<String,Number>(years[0], 567));
-        series1.getData().add(new XYChart.Data<String,Number>(years[1], 1292));
-        series1.getData().add(new XYChart.Data<String,Number>(years[2], 2180));
-        series2.getData().add(new XYChart.Data<String,Number>(years[0], 956));
-        series2.getData().add(new XYChart.Data<String,Number>(years[1], 1665));
-        series2.getData().add(new XYChart.Data<String,Number>(years[2], 2450));
-        series3.getData().add(new XYChart.Data<String,Number>(years[0], 800));
-        series3.getData().add(new XYChart.Data<String,Number>(years[1], 1000));
-        series3.getData().add(new XYChart.Data<String,Number>(years[2], 2800));
-        bc.getData().add(series1);
-        bc.getData().add(series2);
-        bc.getData().add(series3);*/
-        return bc;
+        return bcBoissons;
     }
-     
+
     /**
      * Création de l'histogramme
      *
