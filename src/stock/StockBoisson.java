@@ -164,17 +164,23 @@ public class StockBoisson {
      */
     public void ajouterBoisson(String nomBoisson, int prixBoisson, HashMap<Ingredient, Integer> recetteBoisson) {
         if (this.boissons.size() < StockBoisson.nombreBoissons) {
-            // Création
-            Boisson boisson = new Boisson(nomBoisson, prixBoisson);
-            // Ajout des ingrédients
-            Set set = recetteBoisson.keySet();
-            Iterator it = set.iterator();
-            while (it.hasNext()) {
-                Ingredient i = (Ingredient) it.next();
-                boisson.setIngredient(i, recetteBoisson.get(i));
+            if(testerNomBoisson(nomBoisson)) {
+                // Création
+                Boisson boisson = new Boisson(nomBoisson, prixBoisson);
+                // Ajout des ingrédients
+                Set set = recetteBoisson.keySet();
+                Iterator it = set.iterator();
+                while (it.hasNext()) {
+                    Ingredient i = (Ingredient) it.next();
+                    boisson.setIngredient(i, recetteBoisson.get(i));
+                }
+                this.boissons.add(boisson);
+                System.out.println("Boisson " + boisson + " ajoutée avec succès");
+            } else {
+                System.err.println("Erreur: ce nom de boisson existe déjà.");
             }
-            this.boissons.add(boisson);
-            System.out.println("Boisson " + boisson + " ajoutée avec succès");
+        } else {
+            System.err.println("Erreur: déjà 3 boissons dans la machine.");
         }
     }
 
