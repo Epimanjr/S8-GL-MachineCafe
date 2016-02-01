@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cafe;
+package exception;
+
+import cafe.Ingredient;
 
 /**
  *
  * @author geoffrey
  */
-class StockInsufisantException extends Exception{
+public class StockInsufisantException extends Exception{
 
     private final Ingredient manquant;
-    
+
     public StockInsufisantException(Ingredient manquant) {
         this.manquant = manquant;
     }
@@ -20,5 +22,5 @@ class StockInsufisantException extends Exception{
     public Ingredient getManquant() {
         return manquant;
     }
-       
+
 }

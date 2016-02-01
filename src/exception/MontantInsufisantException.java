@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cafe;
+package exception;
 
 /**
  *
  * @author geoffrey
  */
-class MontantInsufisantException extends Exception {
-    
+public class MontantInsufisantException extends Exception {
+
     private int prixAttendu;
 
     public MontantInsufisantException(int prixAttendu) {
         this.prixAttendu= prixAttendu;
     }
-    
+
     public int getPrixAttendu(){
         return this.prixAttendu;
     }
-    
+
 }

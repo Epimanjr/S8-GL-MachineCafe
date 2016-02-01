@@ -10,6 +10,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import exception.MontantInsufisantException;
+import exception.StockInsufisantException;
 
 /**
  * @author maxime
@@ -30,12 +32,6 @@ public class Machine {
         Scanner sc = new Scanner(System.in);
         Integer choix = 0;
         do {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Machine.class.getName())
-                      .log(Level.SEVERE, null, ex);
-            }
             System.out.println(menu);
             System.out.println("=> ");
 
@@ -96,6 +92,7 @@ public class Machine {
                         accumulateurMonnaie = b.acheter(accumulateurMonnaie,
                                             stock.StockIngredient.getStock());
                         achatOk = true;
+                        System.out.println("Vous avez acheté 1 " + b.getNom());
                     } catch (MontantInsufisantException ex) {
                         System.out.println("Montant insufisant : le prix est de "
                                 + ex.getPrixAttendu());
@@ -121,7 +118,7 @@ public class Machine {
         System.out.println("Entrer combien de monnaie : ");
         return Interaction.demanderEntierAvecMin(1);
     }
-    
+
     private static int demanderArgentAvecAnnulationPossible() {
         System.out.println("Entrer combien de monnaie : (0 pour annuler)");
         return Interaction.demanderEntierAvecMin(0);

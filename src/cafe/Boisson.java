@@ -3,6 +3,8 @@ package cafe;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import exception.MontantInsufisantException;
+import exception.StockInsufisantException;
 
 import stock.StockIngredient;
 
@@ -100,10 +102,10 @@ public class Boisson {
     {
         // TODO
         // Vérification de la possibilité
-        
+
         int prix = getPrix();  // on ne sait jamais si un calcul
                                // de TVA traine dans un getter
-        
+
         if(argentDonne < prix){
             throw new MontantInsufisantException(getPrix());
         }
@@ -111,13 +113,13 @@ public class Boisson {
             throw new StockInsufisantException(getIngredientManquant(stock));
         }
         // on est OK !
-        
-        
+
+
         // Enlèvement des ingrédients du stock.
         for(Ingredient i : recette.keySet()){
             stock.enleverQuantite(i, recette.get(i));
         }
-        
+
         // Monnaie à rendre
         return argentDonne - prix;
     }
@@ -134,7 +136,7 @@ public class Boisson {
         res += "}";
         return res;
     }
-    
+
     /**
      * Donne l'ingredient manquant en cas d'achat impossible
      * (pour cause de manque)
@@ -142,13 +144,13 @@ public class Boisson {
      * @return l'ingrédient manquant
      */
     private Ingredient getIngredientManquant(StockIngredient stock){
-        /* 
+        /*
             Pas bien mais pas le choix en Java
-            Rend la méthode plus robuste mais ne devrais 
-            pas exister -> programmation défensive        
+            Rend la méthode plus robuste mais ne devrais
+            pas exister -> programmation défensive
         */
-        Ingredient manquant = null; 
-                                     
+        Ingredient manquant = null;
+
         for(Ingredient i : recette.keySet()){
             if(stock.getQuantite(i) < recette.get(i)){
                 manquant = i;
