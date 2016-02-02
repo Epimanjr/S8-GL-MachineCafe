@@ -5,8 +5,8 @@
  */
 package cafe;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import exception.MontantInsufisantException;
+import exception.StockInsufisantException;
 import junit.framework.TestCase;
 import org.junit.Test;
 import stock.StockIngredient;
