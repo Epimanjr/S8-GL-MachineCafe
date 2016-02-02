@@ -88,6 +88,7 @@ public class Machine {
                         break; // annulation
                     }
                     accumulateurMonnaie += monnaie;
+                    System.out.println("Crédit : " + accumulateurMonnaie);
                     try {
                         accumulateurMonnaie = b.acheter(accumulateurMonnaie,
                                             stock.StockIngredient.getStock());
