@@ -72,7 +72,15 @@ public class MainFrame extends Application {
 
     private void initVBoxBoissons(HBox root) {
         VBox vbox = new VBox();
-        vbox.getChildren().add(createChartBoissons());
+        HBox hbox = new HBox();
+        Button boutonAjouterBoisson = new Button("Ajouter une boisson");
+        boutonAjouterBoisson.setOnAction((ActionEvent event) -> {
+            FenetreBoissons.getFenetre().show();
+        });
+        hbox.setPadding(new Insets(10, 50, 10, 50));
+
+        hbox.getChildren().add(boutonAjouterBoisson);
+        vbox.getChildren().addAll(createChartBoissons(), hbox);
         root.getChildren().add(vbox);
     }
 
