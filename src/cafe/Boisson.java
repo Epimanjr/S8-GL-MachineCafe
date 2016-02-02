@@ -7,6 +7,7 @@ import exception.MontantInsufisantException;
 import exception.StockInsufisantException;
 
 import stock.StockIngredient;
+import stock.StockBoisson;
 
 public class Boisson {
 
@@ -122,6 +123,10 @@ public class Boisson {
 
         // Monnaie à rendre
         return argentDonne - prix;
+    }
+
+    public boolean verifierBoisson() {
+        return StockBoisson.testerRecetteBoisson(this.recette);
     }
 
     @Override

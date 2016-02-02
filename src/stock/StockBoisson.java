@@ -92,9 +92,14 @@ public class StockBoisson {
                     flag = true;
                     Ingredient ingredient = StockIngredient.demanderQuelIngredient();
                     int quantite = StockIngredient.demanderQuantiteIngredient();
-                    System.err.println("Test : " + ingredient + "-" + quantite);
+                    int quantiteAvant = boisson.getIngredient(ingredient);
                     boisson.setIngredient(ingredient, quantite);
-                    System.out.println("Modification OK");
+                    if(boisson.verifierBoisson()) {
+                        System.out.println("Modification OK");
+                    } else {
+                        System.err.println("Erreur: la boisson ne contient plus aucun ingrédient");
+                        boisson.setIngredient(ingredient, quantiteAvant);
+                    }
                     break;
                 case 3:
                     flag = true;
@@ -134,6 +139,22 @@ public class StockBoisson {
     }
 
     /**
+     * Méthode qui va tester la recette d'une boisson (au moins 1 ingrédient)
+     *
+     * @param recetteBoisson La recette
+     * @return boolean Vrai si la recette est OK
+     */
+    public static boolean testerRecetteBoisson(HashMap<Ingredient, Integer> recetteBoisson) {
+        Set set = recetteBoisson.keySet();
+        Iterator it = set.iterator();
+        int nombreIngredients = 0;
+        while(it.hasNext()) {
+            nombreIngredients += recetteBoisson.get(it.next());
+        }
+        return nombreIngredients != 0;
+    }
+
+    /**
      * Interactivité pour l'ajout d'une boisson.
      */
     public void ajouterBoisson() {
@@ -150,7 +171,11 @@ public class StockBoisson {
                 recetteBoisson.put(i, quantite);
             }
 
-            ajouterBoisson(nomBoisson, prixBoisson, recetteBoisson);
+            if(testerRecetteBoisson(recetteBoisson)) {
+                ajouterBoisson(nomBoisson, prixBoisson, recetteBoisson);
+            } else {
+                System.err.println("Erreur: nouvelle boisson sans ingrédients");
+            }
         }
     }
 
