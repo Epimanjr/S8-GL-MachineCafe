@@ -21,7 +21,7 @@ public class VboxBoisson extends VBox {
     HboxNomBoisson nomBoisson = new HboxNomBoisson();
     HboxPrixBoisson prixBoisson = new HboxPrixBoisson();
     TableIngredients tableIngredients = new TableIngredients();
-    ComboBoxListeBoissons listeBoissons = new ComboBoxListeBoissons();
+    //ComboBoxListeBoissons listeBoissons = new ComboBoxListeBoissons();
 
     public VboxBoisson(int action) {
         this.actionSouhaitee = action;

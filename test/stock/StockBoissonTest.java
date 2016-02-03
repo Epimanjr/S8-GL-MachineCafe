@@ -7,6 +7,8 @@ package stock;
 
 import cafe.Ingredient;
 import java.util.HashMap;
+
+import cafe.ListeIngredients;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,7 +27,7 @@ public class StockBoissonTest {
     public StockBoissonTest() {
         stockBoissons = StockBoisson.getStock();
         HashMap<Ingredient, Integer> recette = new HashMap<>();
-        for (Ingredient i : Ingredient.values()) {
+        for (Ingredient i : ListeIngredients.getListe()) {
             recette.put(i, (int) (Math.random() * 10));
         }
         stockBoissons.ajouterBoisson("Chocolat", 1, recette);
@@ -65,7 +67,7 @@ public class StockBoissonTest {
     @Test
     public void testUniciteBoisson() {
         HashMap<Ingredient, Integer> recette = new HashMap<>();
-        for (Ingredient i : Ingredient.values()) {
+        for (Ingredient i : ListeIngredients.getListe()) {
             recette.put(i, (int) (Math.random() * 10));
         }
         stockBoissons.ajouterBoisson("Chocolat", 1, recette);

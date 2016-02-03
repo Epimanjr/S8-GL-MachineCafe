@@ -102,10 +102,19 @@ public class Interaction {
      * Seul le premier char est pris en compte.
      * @return first char or null
      */
-    public static int demanderIntSansInsister(){
+    public static int demanderIntSansInsister(int min, int max){
         sc.next();
-        int val = sc.nextInt();
 
-        return val;
+        int ret = -1;
+        try{
+            int val =  sc.nextInt();
+            if(val >= min && val <= max){
+                ret = val;
+            }
+            else ret = -1;
+        }catch (NumberFormatException e){
+            ret = -1;
+        }
+        return ret;
     }
 }

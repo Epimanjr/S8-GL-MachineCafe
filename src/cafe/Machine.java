@@ -29,13 +29,9 @@ public class Machine {
             + "\n ";
 
 
-    private static final int SUCRE_DEFAULT=3, SUCRE_MIN=0, SUCRE_MAX=5;
-    private static boolean quantiteSucreSpeciale;
-    private static int niveauSucreBoissonSuivante;
+    private static final int SUCRE_MIN=0, SUCRE_MAX=5;
 
     public static void main(String[] args) {
-        quantiteSucreSpeciale = false;
-        niveauSucreBoissonSuivante = SUCRE_DEFAULT;
 
         Scanner sc = new Scanner(System.in);
         Integer choix = 0;
@@ -149,8 +145,8 @@ public class Machine {
      */
     private static int demanderNiveauSucre(){
         System.out.println("Sucre ? [0..5] auto par défaut : ");
-        /*Character input = Interaction.demanderCharacterSansInsister();
-        System.out.println("|" + input+"|");*/
+        int input = Interaction.demanderIntSansInsister(SUCRE_MIN, SUCRE_MAX);
+        System.out.println("|" + input+"|");
         return -1;
     }
 
