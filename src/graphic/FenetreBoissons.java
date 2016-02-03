@@ -11,28 +11,15 @@ import javafx.stage.Stage;
  */
 public class FenetreBoissons extends Stage {
 
-    /**
-     * Notre fenêtre
-     */
-    private static final FenetreBoissons fenetre = new FenetreBoissons();
-
-    public FenetreBoissons() {
+    public FenetreBoissons(int action) {
         Group group = new Group();
         this.setScene(new Scene(group));
-        initComponents(group);
+        initComponents(group, action);
         this.setTitle("Gestion des boissons");
+        this.show();
     }
 
-    /**
-     * Récupère la fenêtre souhaité.
-     *
-     * @return Stage
-     */
-    public static FenetreBoissons getFenetre() {
-        return fenetre;
-    }
-
-    private void initComponents(Group group) {
-        group.getChildren().add(new VboxBoisson());
+    private void initComponents(Group group, int action) {
+        group.getChildren().add(new VboxBoisson(action));
     }
 }

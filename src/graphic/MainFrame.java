@@ -75,7 +75,7 @@ public class MainFrame extends Application {
         HBox hbox = new HBox();
         Button boutonAjouterBoisson = new Button("Ajouter une boisson");
         boutonAjouterBoisson.setOnAction((ActionEvent event) -> {
-            FenetreBoissons.getFenetre().show();
+            FenetreBoissons fenetre = new FenetreBoissons(1);
         });
         hbox.setPadding(new Insets(10, 50, 10, 50));
 
