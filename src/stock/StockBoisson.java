@@ -19,7 +19,7 @@ public class StockBoisson {
     /**
      * Nombre de boissons disponibles pour la machine.
      */
-    public static int nombreBoissons = 3;
+    public static int nombreBoissons = 5;
 
     /**
      * Liste des boissons disponibles pour la machine.

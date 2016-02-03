@@ -9,7 +9,8 @@ public enum Ingredient {
     CAFE("Café"),
     LAIT("Lait"),
     CHOCOLAT("Chocolat"),
-    SUCRE("Sucre");
+    SUCRE("Sucre"),
+    THE("Thé");
 
     private String name = "";
 
@@ -17,7 +18,7 @@ public enum Ingredient {
     Ingredient(String name) {
         this.name = name;
     }
-    
+
     @Override
     public String toString() {
         return name;
