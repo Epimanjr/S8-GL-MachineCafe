@@ -14,7 +14,7 @@ public class Sample
     try {
         Class.forName("org.sqlite.JDBC");
     }catch(ClassNotFoundException e) {
-        System.err.println("Class not found exception au début");
+        System.err.println("Erreur de driver SQLite.");
     }
 
 
@@ -22,7 +22,7 @@ public class Sample
     try
     {
       // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:db/sample.db");
+      connection = DriverManager.getConnection("jdbc:sqlite:db/machinecafe.db");
       Statement statement = connection.createStatement();
       statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
