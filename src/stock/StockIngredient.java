@@ -81,7 +81,7 @@ public class StockIngredient {
         // Demande du numéro
         while (true) {
             System.out.print("=> ");
-            int numeroIngredient = Interaction.demanderEntierEntreIntervalle(1, tabIngredients.length);
+            int numeroIngredient = Interaction.demanderEntierEntreIntervalle(1, ListeIngredients.getListe().size());
             return ListeIngredients.getListe().get(numeroIngredient - 1);
         }
     }

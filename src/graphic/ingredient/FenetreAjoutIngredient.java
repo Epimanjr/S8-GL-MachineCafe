@@ -5,6 +5,7 @@
  */
 package graphic.ingredient;
 
+import cafe.*;
 import graphic.MainFrame;
 import graphic.boisson.*;
 import javafx.event.ActionEvent;
@@ -56,10 +57,10 @@ public class FenetreAjoutIngredient extends Stage {
         vboxCentral.setPadding(new Insets(20, 50, 50, 20));
         vboxCentral.setSpacing(20);
 
-        final TextField[] saisies = new TextField[MainFrame.listeIngredients.length];
+        final TextField[] saisies = new TextField[ListeIngredients.getListe().size()];
         for (int i = 0; i < saisies.length; i++) {
             HBox hbox = new HBox();
-            Label label = new Label(MainFrame.listeIngredients[i].toString());
+            Label label = new Label(ListeIngredients.getListe().get(i).toString());
             label.setPrefWidth(120);
             saisies[i] = new TextField("0");
             saisies[i].setMaxWidth(50);
@@ -113,10 +114,10 @@ public class FenetreAjoutIngredient extends Stage {
         XYChart.Series<String, Number> s = (XYChart.Series<String, Number>) MainFrame.bc.getData().get(0);
         for (int i = 0; i < saisies.length; i++) {
             if (tabValeur[i] > 0) {
-                stock.StockIngredient.getStock().ajouterIngredient(MainFrame.listeIngredients[i], tabValeur[i]);
+                stock.StockIngredient.getStock().ajouterIngredient(ListeIngredients.getListe().get(i), tabValeur[i]);
 
                 BarChart.Data data = s.getData().get(i);
-                data.setYValue(stock.StockIngredient.getStock().getQuantite(MainFrame.listeIngredients[i]));
+                data.setYValue(stock.StockIngredient.getStock().getQuantite(ListeIngredients.getListe().get(i)));
             }
             saisies[i].setText("0");
         }
