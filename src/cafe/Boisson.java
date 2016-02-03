@@ -24,7 +24,7 @@ public class Boisson {
         this.prix = prix;
         this.recette = new HashMap<>();
 
-        for (Ingredient i : Ingredient.values()) {
+        for (Ingredient i : ListeIngredients.getListe()) {
             this.recette.put(i, 0);
         }
     }

@@ -149,8 +149,8 @@ public class Machine {
      */
     private static int demanderNiveauSucre(){
         System.out.println("Sucre ? [0..5] auto par défaut : ");
-        Character input = Interaction.demanderCharacterSansInsister();
-        System.out.println("|" + input+"|");
+        /*Character input = Interaction.demanderCharacterSansInsister();
+        System.out.println("|" + input+"|");*/
         return -1;
     }
 
@@ -159,7 +159,7 @@ public class Machine {
      * Ajoute beaucoup de choses pour simuler
      */
     public static void ajouteBeaucoupDeChose() {
-        System.out.println("Ajout de beaucoup de choses !!");
+        /*System.out.println("Ajout de beaucoup de choses !!");
         // Ajout d'ingrédients
         stock.StockIngredient.getStock().ajouterIngredient(Ingredient.LAIT, 10);
         stock.StockIngredient.getStock().ajouterIngredient(Ingredient.SUCRE, 10);
@@ -177,6 +177,6 @@ public class Machine {
         recetteBoisson2.put(Ingredient.CHOCOLAT, 0);
         recetteBoisson2.put(Ingredient.SUCRE, 1);
         recetteBoisson2.put(Ingredient.CAFE, 7);
-        stock.StockBoisson.getStock().ajouterBoisson("Café au lait", 2, recetteBoisson2);
+        stock.StockBoisson.getStock().ajouterBoisson("Café au lait", 2, recetteBoisson2);*/
     }
 }
