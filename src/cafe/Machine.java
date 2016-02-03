@@ -144,10 +144,8 @@ public class Machine {
      *
      */
     private static int demanderNiveauSucre(){
-        System.out.println("Sucre ? [0..5] auto par défaut : ");
-        int input = Interaction.demanderIntSansInsister(SUCRE_MIN, SUCRE_MAX);
-        System.out.println("|" + input+"|");
-        return -1;
+        System.out.println("Sucre ? [0..5] <entrer> = par défaut : ");
+        return Interaction.demanderIntSansInsister(SUCRE_MIN, SUCRE_MAX);
     }
 
 

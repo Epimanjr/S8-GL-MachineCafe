@@ -103,17 +103,18 @@ public class Interaction {
      * @return first char or null
      */
     public static int demanderIntSansInsister(int min, int max){
-        sc.next();
-
         int ret = -1;
         try{
-            int val =  sc.nextInt();
-            if(val >= min && val <= max){
-                ret = val;
+
+            String s = sc.nextLine();
+            if(!s.isEmpty()){
+                int val = Integer.parseInt(s);
+                if(val >= min && val <= max){
+                    ret = val;
+                }
             }
-            else ret = -1;
-        }catch (NumberFormatException e){
-            ret = -1;
+        }catch (NumberFormatException | InputMismatchException e) {
+            // ret reste -1. Rien à f0aire ici.
         }
         return ret;
     }
