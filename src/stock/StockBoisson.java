@@ -42,8 +42,6 @@ public class StockBoisson {
         if (this.boissons.isEmpty()) {
             System.err.println("Erreur: aucune boisson à supprimer");
         } else {
-            Scanner sc = new Scanner(System.in);
-
             listerBoissons();
             Boisson b = demanderQuelleBoisson();
             if (b != null) {

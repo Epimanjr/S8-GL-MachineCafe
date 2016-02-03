@@ -73,15 +73,27 @@ public class MainFrame extends Application {
     private void initVBoxBoissons(HBox root) {
         VBox vbox = new VBox();
         HBox hbox = new HBox();
+        hbox.setPadding(new Insets(10, 50, 10, 50));
+
+        initBoutonsGestionBoisson(hbox);
+        vbox.getChildren().addAll(createChartBoissons(), hbox);
+        root.getChildren().add(vbox);
+    }
+
+    private void initBoutonsGestionBoisson(HBox hbox) {
         Button boutonAjouterBoisson = new Button("Ajouter une boisson");
         boutonAjouterBoisson.setOnAction((ActionEvent event) -> {
             FenetreBoissons fenetre = new FenetreBoissons(1);
         });
-        hbox.setPadding(new Insets(10, 50, 10, 50));
-
-        hbox.getChildren().add(boutonAjouterBoisson);
-        vbox.getChildren().addAll(createChartBoissons(), hbox);
-        root.getChildren().add(vbox);
+        Button boutonModifierBoisson = new Button("Modifier une boisson");
+        boutonModifierBoisson.setOnAction((ActionEvent event) -> {
+            FenetreBoissons fenetre = new FenetreBoissons(2);
+        });
+        Button boutonSupprimerBoisson = new Button("Supprimer une boisson");
+        boutonSupprimerBoisson.setOnAction((ActionEvent event) -> {
+            FenetreBoissons fenetre = new FenetreBoissons(3);
+        });
+        hbox.getChildren().addAll(boutonAjouterBoisson, boutonModifierBoisson, boutonSupprimerBoisson);
     }
 
     /**

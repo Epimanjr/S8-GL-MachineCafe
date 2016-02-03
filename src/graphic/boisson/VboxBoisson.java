@@ -17,6 +17,10 @@ public class VboxBoisson extends VBox {
      */
     private int actionSouhaitee;
 
+    HboxNomBoisson nomBoisson = new HboxNomBoisson();
+    HboxPrixBoisson prixBoisson = new HboxPrixBoisson();
+    TableIngredients tableIngredients = new TableIngredients();
+
     public VboxBoisson(int action) {
         this.actionSouhaitee = action;
         this.setSpacing(10);
@@ -26,10 +30,9 @@ public class VboxBoisson extends VBox {
 
     private void initComponents() {
         // TODO
-        HboxNomBoisson nomBoisson = new HboxNomBoisson();
-        HboxPrixBoisson prixBoisson = new HboxPrixBoisson();
-        TableIngredients tableIngredients = new TableIngredients();
-        this.getChildren().addAll(genererLabelTitre(), nomBoisson, prixBoisson, tableIngredients, genererBoutonDeValidation());
+        this.getChildren().add(genererLabelTitre());
+        this.getChildren().addAll(nomBoisson, prixBoisson, tableIngredients, genererBoutonDeValidation());
+        //this.getChildren().add();
     }
 
     /**
@@ -51,6 +54,8 @@ public class VboxBoisson extends VBox {
         // Action lors du click
         return boutonDeValidation;
     }
+
+
 
     /**
      * Récupérer le texte du Label en fonction du choix.
