@@ -10,7 +10,7 @@ public class ListeIngredients extends ArrayList<Ingredient> {
     private static ListeIngredients liste = new ListeIngredients();
 
     private ListeIngredients() {
-
+        init();
     }
 
     /**
