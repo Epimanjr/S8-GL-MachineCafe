@@ -28,7 +28,15 @@ public class Machine {
             + "\n 7 - Quitter."
             + "\n ";
 
+
+    private static final int SUCRE_DEFAULT=3, SUCRE_MIN=0, SUCRE_MAX=5;
+    private static boolean quantiteSucreSpeciale;
+    private static int niveauSucreBoissonSuivante;
+
     public static void main(String[] args) {
+        quantiteSucreSpeciale = false;
+        niveauSucreBoissonSuivante = SUCRE_DEFAULT;
+
         Scanner sc = new Scanner(System.in);
         Integer choix = 0;
         do {
@@ -66,13 +74,16 @@ public class Machine {
         } while (choix != 7);
     }
 
+
     /**
      * Achat d'une boisson
      */
     public static void acheterBoisson() {
+
         if (stock.StockBoisson.getStock().getBoissons().isEmpty()) {
             System.err.println("Erreur: aucune boisson à acheter.");
         } else {
+            demanderNiveauSucre();
             System.out.println("Quelle boisson voulez-vous acheter ?");
             // Demande
             stock.StockBoisson.getStock().listerBoissons();
@@ -124,6 +135,25 @@ public class Machine {
         System.out.println("Entrer combien de monnaie : (0 pour annuler)");
         return Interaction.demanderEntierAvecMin(0);
     }
+
+    /**
+     * Demande le niveau de sucre en procédant :
+     * - récupère une str
+     * - regarde si elle est vide ([ENTER])
+     * - si non vide : tente de parser en int
+     * - si impossible de parser : valeur par défaut
+     * - si possible : verifie [MIN..MAX]
+     * - retourne
+     * @return niveau de sucre, -1 = auto
+     *
+     */
+    private static int demanderNiveauSucre(){
+        System.out.println("Sucre ? [0..5] auto par défaut : ");
+        Character input = Interaction.demanderCharacterSansInsister();
+        System.out.println("|" + input+"|");
+        return -1;
+    }
+
 
     /**
      * Ajoute beaucoup de choses pour simuler

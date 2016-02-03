@@ -96,4 +96,16 @@ public class Interaction {
             }
         }
     }
+
+    /**
+     * Demande une string de longeur 1 à l'utilisateur.
+     * Seul le premier char est pris en compte.
+     * @return first char or null
+     */
+    public static int demanderIntSansInsister(){
+        sc.next();
+        int val = sc.nextInt();
+
+        return val;
+    }
 }

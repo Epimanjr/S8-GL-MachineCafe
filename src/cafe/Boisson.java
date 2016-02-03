@@ -94,8 +94,8 @@ public class Boisson {
      * @param argentDonne Argent donné par l'acheteur
      * @param stock Stock à utiliser
      * @return L'argent à rendre
-     * @throws cafe.MontantInsufisantException
-     * @throws cafe.StockInsufisantException
+     * @throws MontantInsufisantException
+     * @throws StockInsufisantException
      */
     public int acheter(int argentDonne, StockIngredient stock)
         throws MontantInsufisantException,
