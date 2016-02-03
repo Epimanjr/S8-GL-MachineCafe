@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.1.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>210</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Ingredient
+--
+_nomIngredient_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>200</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Boisson
+--
+_nomBoisson_
+prix</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>220</y>
+      <w>260</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=*
+m2=*
+&lt; contient</panel_attributes>
+    <additional_attributes>10.0;20.0;240.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>270</x>
+      <y>320</y>
+      <w>400</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>_Passage au modèle relationnel : _
+     Ingredient(_nomIngredient_)
+     Boisson(_nomBoisson_, prix)
+     Recette(_nomBoisson_, _nomIngredient_, quantite)
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
