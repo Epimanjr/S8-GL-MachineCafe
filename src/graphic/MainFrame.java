@@ -5,9 +5,9 @@
  */
 package graphic;
 
-import cafe.Boisson;
-import cafe.Ingredient;
-import cafe.Machine;
+import cafe.*;
+import graphic.boisson.*;
+import graphic.ingredient.*;
 import java.util.Arrays;
 import javafx.application.Application;
 import javafx.collections.FXCollections;

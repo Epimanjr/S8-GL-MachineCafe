@@ -1,7 +1,6 @@
-package graphic;
+package graphic.boisson;
 
-import graphic.boisson.HboxNomBoisson;
-import graphic.boisson.HboxPrixBoisson;
+import graphic.ingredient.*;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;

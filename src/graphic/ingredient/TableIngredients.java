@@ -1,4 +1,4 @@
-package graphic;
+package graphic.ingredient;
 
 import cafe.Ingredient;
 import exception.ValeurIncorrecteException;

@@ -1,4 +1,4 @@
-package graphic;
+package graphic.boisson;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
