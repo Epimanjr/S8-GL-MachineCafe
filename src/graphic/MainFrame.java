@@ -32,10 +32,6 @@ import javafx.stage.Stage;
  */
 public class MainFrame extends Application {
 
-    /**
-     * Liste des ingrédients
-     */
-    public static final Ingredient[] listeIngredients = Ingredient.values();
     public static BarChart<String, Number> bc;
     public static BarChart<String, Number> bcBoissons;
     static XYChart.Series<String, Number> series1 = new XYChart.Series<>();
@@ -52,7 +48,7 @@ public class MainFrame extends Application {
         // Nouvelle série
         series1 = new XYChart.Series<>();
         series1.setName("Stock des ingrédients");
-        for (Ingredient i : listeIngredients) {
+        for (Ingredient i : ListeIngredients.getListe()) {
             series1.getData().add(new XYChart.Data<>(i.toString(), stock.StockIngredient.getStock().getQuantite(i)));
         }
 
@@ -136,7 +132,7 @@ public class MainFrame extends Application {
             }
             bcBoissons.getData().add(seriesB);
         }*/
-        for (Ingredient i : listeIngredients) {
+        for (Ingredient i : ListeIngredients.getListe()) {
             XYChart.Series<String,Number> seriesB = new XYChart.Series<>();
             seriesB.setName(i.toString());
             for(Boisson b : stock.StockBoisson.getStock().getBoissons()) {

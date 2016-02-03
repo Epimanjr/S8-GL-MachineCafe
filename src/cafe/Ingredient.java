@@ -1,22 +1,31 @@
 package cafe;
 
 /**
+ * On souhaite avoir du café, du lait, du chocolat, du sucre et du thé.
  *
  * @author Maxime BLAISE
  * @author Geoffrey GAILLARD
  */
-public enum Ingredient {
-    CAFE("Café"),
-    LAIT("Lait"),
-    CHOCOLAT("Chocolat"),
-    SUCRE("Sucre"),
-    THE("Thé");
+public class Ingredient {
 
+    /**
+     * Nom de l'ingrédient.
+     */
     private String name = "";
 
     // Constructeur
-    Ingredient(String name) {
+    public Ingredient(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Ingredient) {
+            Ingredient objI = (Ingredient) obj;
+            return objI.toString().equals(this.toString());
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package graphic.ingredient;
 
 import cafe.Ingredient;
+import cafe.ListeIngredients;
 import exception.ValeurIncorrecteException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,7 +24,7 @@ public class TableIngredients extends VBox {
     public TableIngredients() {
         this.setSpacing(10);
         // Parcours des ingrédients
-        for(Ingredient i : Ingredient.values()) {
+        for(Ingredient i : ListeIngredients.getListe()) {
             HBox hboxIngredientI = new HBox();
             TextField saisieIngredientI = new TextField();
             saisieIngredientI.setMaxWidth(50);
