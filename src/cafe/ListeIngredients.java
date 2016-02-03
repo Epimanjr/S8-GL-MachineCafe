@@ -1,6 +1,8 @@
 package cafe;
 
 import java.util.ArrayList;
+import java.sql.*;
+import base.*;
 
 public class ListeIngredients extends ArrayList<Ingredient> {
 
@@ -19,6 +21,13 @@ public class ListeIngredients extends ArrayList<Ingredient> {
     public static ListeIngredients getListe() {
         return liste;
     }
+
+    public void insert() {
+        for(Ingredient i : this) {
+            i.insert();
+        }
+    }
+
 
     private void init() {
         this.add(new Ingredient("Café"));
