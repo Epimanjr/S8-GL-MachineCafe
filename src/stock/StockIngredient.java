@@ -1,6 +1,7 @@
 package stock;
 
 import cafe.Ingredient;
+import cafe.ListeIngredients;
 import cafe.Interaction;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -26,7 +27,7 @@ public class StockIngredient {
      */
     public StockIngredient() {
         // Initialise la map avec toutes les valeurs de l'énumération
-        for (Ingredient i : Ingredient.values()) {
+        for (Ingredient i : ListeIngredients.getListe()) {
             ingredients.put(i, 0);
         }
     }
@@ -73,16 +74,15 @@ public class StockIngredient {
      */
     public static Ingredient demanderQuelIngredient() {
         // Affichage des ingrédients
-        Ingredient[] tabIngredients = Ingredient.values();
         System.out.println("Quel ingrédient ?");
-        for (int i = 0; i < tabIngredients.length; i++) {
-            System.out.println((i + 1) + "/ " + tabIngredients[i].toString());
+        for (int i = 0; i < ListeIngredients.getListe().size(); i++) {
+            System.out.println((i + 1) + "/ " + ListeIngredients.getListe().get(i).toString());
         }
         // Demande du numéro
         while (true) {
             System.out.print("=> ");
             int numeroIngredient = Interaction.demanderEntierEntreIntervalle(1, tabIngredients.length);
-            return tabIngredients[numeroIngredient - 1];
+            return ListeIngredients.getListe().get(numeroIngredient - 1);
         }
     }
 
@@ -130,6 +130,6 @@ public class StockIngredient {
             System.out.println(i.toString() + " => " + quantite);
         }
     }
-    
-    
+
+
 }

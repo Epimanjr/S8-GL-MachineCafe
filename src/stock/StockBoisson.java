@@ -2,6 +2,7 @@ package stock;
 
 import cafe.Boisson;
 import cafe.Ingredient;
+import cafe.ListeIngredients;
 import cafe.Interaction;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -164,7 +165,7 @@ public class StockBoisson {
 
             String nomBoisson = demanderNom();
             int prixBoisson = demanderPrix();
-            for (Ingredient i : Ingredient.values()) {
+            for (Ingredient i : ListeIngredients.getListe()) {
                 int quantite = quantiteIngredient(i);
                 recetteBoisson.put(i, quantite);
             }
