@@ -26,25 +26,27 @@ public class Base {
     }
 
     public static void createTableIngredient() {
-        //TODO
+        String sql = "CREATE TABLE IF NOT EXISTS ingredient(nomIngredient string PRIMARY KEY)";
+        try {
+            Base.insert(sql);
+        } catch(SQLException e) {
+            System.err.println("Erreur: SQLException pour la requête " + sql);
+        }
     }
 
     public static void createTableBoisson() {
-        //TODO
+        String sql = "CREATE TABLE IF NOT EXISTS boisson(nomBoisson string PRIMARY KEY, prix integer)";
+        try {
+            Base.insert(sql);
+        } catch(SQLException e) {
+            System.err.println("Erreur: SQLException pour la requête " + sql);
+        }
     }
 
     public static void main(String[] args) {
-        try {
-            ResultSet rs = Base.select("select * from person");
-            while(rs.next())
-            {
-              // read the result set
-              System.out.println("name = " + rs.getString("name"));
-              System.out.println("id = " + rs.getInt("id"));
-            }
-        } catch(SQLException e) {
-            System.err.println("SQLException pour select * from person");
-        }
+        /*Base.createTableIngredient();
+        Base.createTableBoisson();*/
+        
 
     }
 }
