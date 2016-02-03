@@ -79,7 +79,7 @@ public class Machine {
         if (stock.StockBoisson.getStock().getBoissons().isEmpty()) {
             System.err.println("Erreur: aucune boisson à acheter.");
         } else {
-            demanderNiveauSucre();
+            int sucre = demanderNiveauSucre();
             System.out.println("Quelle boisson voulez-vous acheter ?");
             // Demande
             stock.StockBoisson.getStock().listerBoissons();
@@ -98,7 +98,7 @@ public class Machine {
                     System.out.println("Crédit : " + accumulateurMonnaie);
                     try {
                         accumulateurMonnaie = b.acheter(accumulateurMonnaie,
-                                            stock.StockIngredient.getStock());
+                                            stock.StockIngredient.getStock(), sucre);
                         achatOk = true;
                         System.out.println("Vous avez acheté 1 " + b.getNom());
                     } catch (MontantInsufisantException ex) {

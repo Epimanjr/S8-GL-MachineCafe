@@ -97,13 +97,10 @@ public class Boisson {
      * @throws MontantInsufisantException
      * @throws StockInsufisantException
      */
-    public int acheter(int argentDonne, StockIngredient stock)
+    public int acheter(int argentDonne, StockIngredient stock, int sucre)
         throws MontantInsufisantException,
                 StockInsufisantException
     {
-        // TODO
-        // Vérification de la possibilité
-
         int prix = getPrix();  // on ne sait jamais si un calcul
                                // de TVA traine dans un getter
 
@@ -116,9 +113,21 @@ public class Boisson {
         // on est OK !
 
 
+        // Calcul du sucre effectif à enlever
+        Ingredient ingredientSucre = new Ingredient("Café");
+        int sucreEffectif = sucre;
+        if(sucre == -1){
+            sucreEffectif = recette.get(ingredientSucre);
+        }
+
         // Enlèvement des ingrédients du stock.
         for(Ingredient i : recette.keySet()){
-            stock.enleverQuantite(i, recette.get(i));
+            if(i.equals(ingredientSucre)){
+                stock.enleverQuantite(i, sucreEffectif);
+            }
+            else{
+                stock.enleverQuantite(i, recette.get(i));
+            }
         }
 
         // Monnaie à rendre
