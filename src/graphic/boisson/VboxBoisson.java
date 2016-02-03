@@ -5,6 +5,7 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -20,6 +21,7 @@ public class VboxBoisson extends VBox {
     HboxNomBoisson nomBoisson = new HboxNomBoisson();
     HboxPrixBoisson prixBoisson = new HboxPrixBoisson();
     TableIngredients tableIngredients = new TableIngredients();
+    ComboBoxListeBoissons listeBoissons = new ComboBoxListeBoissons();
 
     public VboxBoisson(int action) {
         this.actionSouhaitee = action;
@@ -31,8 +33,13 @@ public class VboxBoisson extends VBox {
     private void initComponents() {
         // TODO
         this.getChildren().add(genererLabelTitre());
-        this.getChildren().addAll(nomBoisson, prixBoisson, tableIngredients, genererBoutonDeValidation());
-        //this.getChildren().add();
+        if(actionSouhaitee == 1 || actionSouhaitee == 2) {
+            if(actionSouhaitee == 1) {
+                this.getChildren().add(nomBoisson);
+            }
+            this.getChildren().addAll(prixBoisson, tableIngredients);
+        }
+        this.getChildren().add(genererBoutonDeValidation());
     }
 
     /**
