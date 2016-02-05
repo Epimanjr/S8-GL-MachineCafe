@@ -72,6 +72,7 @@ public class Interaction {
         while (true) {
             try {
                 int res = sc.nextInt();
+                sc.nextLine();
                 return res;
             } catch (InputMismatchException e) {
                 System.err.println("Erreur: veuillez entrer un nombre entier valide.");
@@ -114,7 +115,7 @@ public class Interaction {
                 }
             }
         }catch (NumberFormatException | InputMismatchException e) {
-            // ret reste -1. Rien à f0aire ici.
+            // ret est déjà à -1. Rien à faire ici.
         }
         return ret;
     }
