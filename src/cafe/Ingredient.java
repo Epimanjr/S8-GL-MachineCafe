@@ -18,6 +18,10 @@ public class Ingredient {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Ingredient) {
@@ -29,7 +33,5 @@ public class Ingredient {
     }
 
     @Override
-    public String toString() {
-        return name;
-    }
+    public String toString() { return getName(); }
 }

@@ -17,12 +17,12 @@ public class Boisson {
     /**
      * Quantité de chaque ingredient
      */
-    private HashMap<Ingredient, Integer> recette;
+    private Recette recette;
 
     public Boisson(String nom, int prix) {
         this.nom = nom;
         this.prix = prix;
-        this.recette = new HashMap<>();
+        this.recette = new Recette();
 
         for (Ingredient i : ListeIngredients.getListe()) {
             this.recette.put(i, 0);
@@ -68,7 +68,7 @@ public class Boisson {
      * @param stock Stock à utiliser
      * @return Vrai/Faux
      */
-    public boolean estPossible(StockIngredient stock) {
+    public boolean estPossible(StockIngredient stock, Recette recette) {
         //return false;
         // TODO
         // Parcourir la liste des ingrédients
@@ -85,6 +85,10 @@ public class Boisson {
         }
 
         return possible;
+    }
+
+    public boolean estPossible(StockIngredient stock){
+        return estPossible(stock, this.recette);
     }
 
     /**
@@ -107,32 +111,34 @@ public class Boisson {
         if(argentDonne < prix){
             throw new MontantInsufisantException(getPrix());
         }
-        if(!estPossible(stock)){
+
+        // WARN !! overwrite `recette` symbol binding to remove semantic noise.
+        Recette recette = getRecetteEnTenantCompteDuSucre(this.recette, sucre);
+        // `recette` is now local
+
+        if(!estPossible(stock, recette)){
             throw new StockInsufisantException(getIngredientManquant(stock));
         }
         // on est OK !
 
 
         // Calcul du sucre effectif à enlever
-        Ingredient ingredientSucre = new Ingredient("Café");
-        int sucreEffectif = sucre;
-        if(sucre == -1){
-            sucreEffectif = recette.get(ingredientSucre);
-        }
 
         // Enlèvement des ingrédients du stock.
         for(Ingredient i : recette.keySet()){
-            if(i.equals(ingredientSucre)){
-                stock.enleverQuantite(i, sucreEffectif);
-            }
-            else{
-                stock.enleverQuantite(i, recette.get(i));
-            }
+            stock.enleverQuantite(i, recette.get(i));
         }
-
         // Monnaie à rendre
         return argentDonne - prix;
     }
+
+
+    private Recette getRecetteEnTenantCompteDuSucre(Recette recetteActuelle, int quantiteSucre){
+        if(quantiteSucre != -1)
+            return recetteActuelle.obtenirUnCloneAvecSucrePersonnalise(quantiteSucre);
+        else return recetteActuelle;
+    }
+
 
     public boolean verifierBoisson() {
         return StockBoisson.testerRecetteBoisson(this.recette);
@@ -140,15 +146,15 @@ public class Boisson {
 
     @Override
     public String toString() {
-        String res = this.nom + "(Prix:" + this.prix + ") Ingrédients{";
-        Set set = recette.keySet();
-        Iterator it = set.iterator();
-        while (it.hasNext()) {
-            Ingredient i = (Ingredient) it.next();
-            res += i.toString() + ":" + recette.get(i) + "-";
+        StringBuilder res = new StringBuilder( this.nom + "(Prix:" + this.prix + ") Ingrédients{");
+        for (Ingredient i : recette.keySet()) {
+            res.append(i.toString())
+               .append(":")
+               .append(recette.get(i))
+               .append("-");
         }
-        res += "}";
-        return res;
+        res.append("}");
+        return res.toString();
     }
 
     /**

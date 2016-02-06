@@ -1,6 +1,8 @@
 package cafe;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Stack;
 
 public class ListeIngredients extends ArrayList<Ingredient> {
 
@@ -26,5 +28,12 @@ public class ListeIngredients extends ArrayList<Ingredient> {
         this.add(new Ingredient("Sucre"));
         this.add(new Ingredient("Chocolat"));
         this.add(new Ingredient("Thé"));
+    }
+
+    public static Optional<Ingredient> obtenirSingleton(String nom){
+        return getListe()
+                .stream()
+                .filter(i -> i.getName().equals(nom))
+                .findFirst();
     }
 }
