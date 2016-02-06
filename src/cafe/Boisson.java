@@ -1,8 +1,5 @@
 package cafe;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 import exception.MontantInsufisantException;
 import exception.StockInsufisantException;
 
@@ -117,7 +114,7 @@ public class Boisson {
         // `recette` is now local
 
         if(!estPossible(stock, recette)){
-            throw new StockInsufisantException(getIngredientManquant(stock));
+            throw new StockInsufisantException(getIngredientManquant(stock, recette));
         }
         // on est OK !
 
@@ -163,7 +160,7 @@ public class Boisson {
      * @param stock Stock de réference
      * @return l'ingrédient manquant
      */
-    private Ingredient getIngredientManquant(StockIngredient stock){
+    private Ingredient getIngredientManquant(StockIngredient stock, Recette recette){
         /*
             Pas bien mais pas le choix en Java
             Rend la méthode plus robuste mais ne devrais
@@ -178,6 +175,10 @@ public class Boisson {
             }
         }
         return manquant;
+    }
+
+    private Ingredient getIngredientManquant(StockIngredient stock){
+        return getIngredientManquant(stock, this.recette);
     }
 
 }
