@@ -70,14 +70,15 @@ public class Base {
               System.out.println("prix = " + rs.getString("prix"));
             }
         } catch(SQLException e) {
-            System.err.println("Erreur de lecture des ingrédients de la base.");
+            System.err.println("Erreur de lecture des boissons de la base.");
         }
     }
 
     public static void main(String[] args) {
         /*Base.createTableIngredient();
-        Base.createTableBoisson();*/
+        Base.createTableBoisson();
 
+        ListeIngredients.getListe().insert();*/
         afficherIngredientDeLaBase();
         //afficherBoissonDeLaBase();
     }
