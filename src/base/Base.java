@@ -31,6 +31,12 @@ public class Base {
         insert(sql);
     }
 
+    public static void createAll() {
+        createTableIngredient();
+        createTableBoisson();
+        createTableRecette();
+    }
+
     public static void createTableIngredient() {
         Base.insert("DROP TABLE IF EXISTS ingredient");
         Base.insert("CREATE TABLE IF NOT EXISTS ingredient(nomIngredient string PRIMARY KEY)");
@@ -39,6 +45,17 @@ public class Base {
     public static void createTableBoisson() {
         Base.insert("DROP TABLE IF EXISTS boisson");
         Base.insert("CREATE TABLE IF NOT EXISTS boisson(nomBoisson string PRIMARY KEY, prix integer)");
+    }
+
+    public static void createTableRecette() {
+        Base.insert("DROP TABLE IF EXISTS recette");
+        Base.insert("CREATE TABLE IF NOT EXISTS recette("
+            + "nomBoisson string,"
+            + "nomIngredient string,"
+            + "quantite integer,"
+            + "PRIMARY KEY(nomBoisson, nomIngredient),"
+            + "FOREIGN KEY(nomBoisson) REFERENCES boisson(nomBoisson),"
+            + "FOREIGN KEY(nomIngredient) REFERENCES ingredient(nomIngredient))");
     }
 
     /**
@@ -79,7 +96,8 @@ public class Base {
         Base.createTableBoisson();
 
         ListeIngredients.getListe().insert();*/
-        afficherIngredientDeLaBase();
+        createAll();
+        //afficherIngredientDeLaBase();
         //afficherBoissonDeLaBase();
     }
 }
