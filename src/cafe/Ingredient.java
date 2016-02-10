@@ -1,6 +1,7 @@
 package cafe;
 
 import base.*;
+import java.sql.PreparedStatement;
 
 /**
  * On souhaite avoir du café, du lait, du chocolat, du sucre et du thé.
@@ -9,6 +10,7 @@ import base.*;
  * @author Geoffrey GAILLARD
  */
 public class Ingredient {
+    public static String nomTable = "ingredient";
 
     /**
      * Nom de l'ingrédient.
@@ -24,9 +26,17 @@ public class Ingredient {
         return name;
     }
 
+    /**
+     * Insertion de l'ingrédient dans la base de données.
+     */
     public void insert() {
-        String sql = "insert into ingredient values('"+this.name+"')";
-        Base.insert(sql);
+        try {
+            PreparedStatement pstmt = Connexion.getConnection().prepareStatement("INSERT INTO "+Ingredient.nomTable+" VALUES(?)");
+            pstmt.setString(1, this.name);
+            pstmt.executeUpdate();
+        } catch(SQLException sql) {
+            System.err.println("Erreur lors de l'insertion de la boisson " + this.toString());
+        }
     }
 
     @Override

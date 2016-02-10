@@ -3,12 +3,13 @@ package cafe;
 import exception.MontantInsufisantException;
 import exception.StockInsufisantException;
 import base.*;
+import java.sql.PreparedStatement;
 
 import stock.StockIngredient;
 import stock.StockBoisson;
 
 public class Boisson {
-
+    public static String nomTable = "boisson";
     private int prix;
     private String nom;
 
@@ -27,9 +28,18 @@ public class Boisson {
         }
     }
 
+    /**
+     * Insertion de la boisson dans la base de données.
+     */
     public void insert() {
-        String sql = "insert into boisson values('"+this.nom+"', " + prix + ")";
-        Base.insert(sql);
+        try {
+            PreparedStatement pstmt = Connexion.getConnection().prepareStatement("INSERT INTO "+Boisson.nomTable+" VALUES(?, ?)");
+            pstmt.setString(1, this.nom);
+            pstmt.setInt(2, this.prix);
+            pstmt.executeUpdate();s
+        } catch(SQLException sql) {
+            System.err.println("Erreur lors de l'insertion de la boisson " + this.toString());
+        }
     }
 
 
