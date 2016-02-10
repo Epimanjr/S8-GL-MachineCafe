@@ -1,7 +1,6 @@
 package cafe;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 /**
  * Created by geoffrey on 06/02/16.

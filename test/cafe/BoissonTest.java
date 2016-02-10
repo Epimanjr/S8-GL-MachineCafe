@@ -5,11 +5,7 @@
  */
 package cafe;
 
-import exception.MontantInsufisantException;
-import exception.StockInsufisantException;
 import junit.framework.TestCase;
-import org.junit.Test;
-import stock.StockIngredient;
 
 /**
  *

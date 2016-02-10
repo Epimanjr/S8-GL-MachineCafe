@@ -5,11 +5,8 @@
  */
 package cafe;
 
-import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import exception.MontantInsufisantException;
 import exception.StockInsufisantException;
 
@@ -25,7 +22,8 @@ public class Machine {
             + "\n 4 - Supprimer une boisson"
             + "\n 5 - Ajouter un ingredient"
             + "\n 6 - Afficher le stock d'ingredients"
-            + "\n 7 - Quitter."
+            + "\n 7 - Sauvegarder les données"
+            + "\n 8 - Quitter."
             + "\n ";
 
 
@@ -59,6 +57,9 @@ public class Machine {
                     break;
                 case 6:
                     stock.StockIngredient.getStock().afficherStockIngredient();
+                    break;
+                case 7:
+                    //stock.
                     break;
                 case 1212:
                     Machine.ajouteBeaucoupDeChose();

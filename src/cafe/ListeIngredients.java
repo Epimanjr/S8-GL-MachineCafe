@@ -2,7 +2,6 @@ package cafe;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Stack;
 
 
 public class ListeIngredients extends ArrayList<Ingredient> {
@@ -24,9 +23,7 @@ public class ListeIngredients extends ArrayList<Ingredient> {
     }
 
     public void insert() {
-        for(Ingredient i : this) {
-            i.insert();
-        }
+        this.forEach(Ingredient::insert);
     }
 
 

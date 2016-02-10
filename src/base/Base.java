@@ -73,6 +73,13 @@ public class Base {
             System.err.println("Erreur de lecture des boissons de la base.");
         }
     }
+    
+    
+    
+    public static void sauvegardesStockBoisson(StockBoisson stock){
+        Base.insert("TRUCATE table " + "boisson" + ";"); // TODO
+        stock.getBoissons().forEach(Boisson::insert);
+    }
 
     public static void main(String[] args) {
         /*Base.createTableIngredient();

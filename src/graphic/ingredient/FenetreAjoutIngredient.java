@@ -7,9 +7,7 @@ package graphic.ingredient;
 
 import cafe.*;
 import graphic.MainFrame;
-import graphic.boisson.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;

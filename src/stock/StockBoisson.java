@@ -6,7 +6,6 @@ import cafe.ListeIngredients;
 import cafe.Interaction;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -37,9 +36,7 @@ public class StockBoisson {
     }
 
     public void insert() {
-        for(Boisson b : boissons) {
-            b.insert();
-        }
+        boissons.forEach(Boisson::insert);
     }
 
     

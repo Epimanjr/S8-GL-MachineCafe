@@ -4,9 +4,7 @@ import cafe.Ingredient;
 import cafe.ListeIngredients;
 import cafe.Interaction;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Iterator;
-import java.util.Scanner;
 import java.util.Set;
 
 /**
