@@ -4,6 +4,7 @@ import exception.MontantInsufisantException;
 import exception.StockInsufisantException;
 import base.*;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import stock.StockIngredient;
 import stock.StockBoisson;
@@ -36,7 +37,7 @@ public class Boisson {
             PreparedStatement pstmt = Connexion.getConnection().prepareStatement("INSERT INTO "+Boisson.nomTable+" VALUES(?, ?)");
             pstmt.setString(1, this.nom);
             pstmt.setInt(2, this.prix);
-            pstmt.executeUpdate();s
+            pstmt.executeUpdate();
         } catch(SQLException sql) {
             System.err.println("Erreur lors de l'insertion de la boisson " + this.toString());
         }

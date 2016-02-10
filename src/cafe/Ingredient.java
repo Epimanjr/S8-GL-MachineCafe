@@ -2,6 +2,7 @@ package cafe;
 
 import base.*;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * On souhaite avoir du café, du lait, du chocolat, du sucre et du thé.
