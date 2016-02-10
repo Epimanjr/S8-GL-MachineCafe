@@ -1,5 +1,7 @@
 package cafe;
 
+import base.*;
+
 /**
  * On souhaite avoir du café, du lait, du chocolat, du sucre et du thé.
  *
@@ -20,6 +22,11 @@ public class Ingredient {
 
     public String getName() {
         return name;
+    }
+
+    public void insert() {
+        String sql = "insert into ingredient values('"+this.name+"')";
+        Base.insert(sql);
     }
 
     @Override

@@ -2,6 +2,7 @@ package cafe;
 
 import exception.MontantInsufisantException;
 import exception.StockInsufisantException;
+import base.*;
 
 import stock.StockIngredient;
 import stock.StockBoisson;
@@ -25,6 +26,12 @@ public class Boisson {
             this.recette.put(i, 0);
         }
     }
+
+    public void insert() {
+        String sql = "insert into boisson values('"+this.nom+"', " + prix + ")";
+        Base.insert(sql);
+    }
+
 
     public String getNom() {
         return nom;

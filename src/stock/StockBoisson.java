@@ -36,6 +36,14 @@ public class StockBoisson {
 
     }
 
+    public void insert() {
+        for(Boisson b : boissons) {
+            b.insert();
+        }
+    }
+
+    
+
     /**
      * Interactivité pour la suppression d'une boisson.
      */

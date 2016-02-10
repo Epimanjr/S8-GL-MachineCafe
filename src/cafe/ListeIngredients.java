@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Stack;
 
+
 public class ListeIngredients extends ArrayList<Ingredient> {
 
     /**
@@ -21,6 +22,13 @@ public class ListeIngredients extends ArrayList<Ingredient> {
     public static ListeIngredients getListe() {
         return liste;
     }
+
+    public void insert() {
+        for(Ingredient i : this) {
+            i.insert();
+        }
+    }
+
 
     private void init() {
         this.add(new Ingredient("Café"));
